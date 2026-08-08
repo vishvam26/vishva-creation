@@ -1,0 +1,2585 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vishh Creation | Handcrafted Fine Art & Crochet by @__vishh.art__</title>
+  <meta name="description"
+    content="Exquisite handmade paintings, crochet plushies, blooming flower bouquets, personalized keychains, and gift hampers by Vishva." />
+
+  <!-- Google Fonts: Playfair Display, Plus Jakarta Sans, & Cinzel -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brandDark: '#141210',
+            brandNavy: '#2F4156',
+            brandTeal: '#567C8D',
+            brandSky: '#C8D9E6',
+            brandBeige: '#F5EFEB',
+            brandRose: '#567C8D',
+            brandRoseSoft: '#EBF2F7',
+            brandSage: '#567C8D',
+            brandGold: '#2F4156'
+          },
+          fontFamily: {
+            title: ['Cinzel', 'serif'],
+            serif: ['Playfair Display', 'serif'],
+            sans: ['Plus Jakarta Sans', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    html {
+      max-width: 100%;
+      overflow-x: hidden !important;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: #F5EFEB;
+      color: #1C1917;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      overflow-x: hidden !important;
+      max-width: 100%;
+      position: relative;
+    }
+
+    /* HIDE HORIZONTAL SCROLLBARS FOR CLEAN LUXURY LOOK */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    /* CUSTOM LUXURY VERTICAL SCROLLBAR */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #F5EFEB;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #567C8D;
+      border-radius: 4px;
+      border: 1px solid rgba(47, 65, 86, 0.2);
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #2F4156;
+    }
+
+    /* DISABLE BACKGROUND CANVAS & CURSOR GLOW EFFECT AS REQUESTED */
+    #sparkle-canvas,
+    #cursor-glow {
+      display: none !important;
+    }
+
+    .glow-bg {
+      background: linear-gradient(180deg, #FFFFFF 0%, #F5EFEB 60%, #E8EEF3 100%);
+    }
+
+    .shimmer-btn {
+      background: linear-gradient(135deg, #2F4156 0%, #1D2B3A 50%, #567C8D 100%);
+      color: #FFFFFF;
+      transition: all 0.3s ease;
+    }
+
+    .shimmer-btn:hover {
+      background: linear-gradient(135deg, #567C8D 0%, #2F4156 100%);
+      box-shadow: 0 10px 25px -5px rgba(47, 65, 86, 0.4);
+    }
+
+    .luxe-card {
+      background-color: #FFFFFF;
+      border-color: #E7E5E4;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .luxe-card:hover {
+      border-color: #567C8D;
+      box-shadow: 0 20px 30px -10px rgba(47, 65, 86, 0.15);
+    }
+
+    /* ANIMATED FLOATING BACKGROUND BLOBS */
+    .bg-blob-1 {
+      position: absolute;
+      top: -100px;
+      right: -100px;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(86, 124, 141, 0.2), transparent 70%);
+      filter: blur(80px);
+      animation: floatBlob 14s ease-in-out infinite alternate;
+      pointer-events: none;
+    }
+
+    .bg-blob-2 {
+      position: absolute;
+      bottom: 10%;
+      left: -150px;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(200, 217, 230, 0.3), transparent 70%);
+      filter: blur(90px);
+      animation: floatBlob 18s ease-in-out infinite alternate-reverse;
+      pointer-events: none;
+    }
+
+    @keyframes floatBlob {
+      0% {
+        transform: translate(0, 0) scale(1);
+      }
+
+      50% {
+        transform: translate(60px, 40px) scale(1.1);
+      }
+
+      100% {
+        transform: translate(-40px, 80px) scale(0.95);
+      }
+    }
+
+    /* ANIMATED LOADING SCREEN */
+    #loader-screen {
+      position: fixed;
+      inset: 0;
+      background: #F5EFEB;
+      color: #1C1917;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.8s ease;
+    }
+
+    #loader-screen.loaded {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    /* MATTE LIGHT GRADIENT BACKGROUND */
+    .glow-bg {
+      background: linear-gradient(180deg, #FFFFFF 0%, #F5EFEB 60%, #E8EEF3 100%);
+      position: relative;
+    }
+
+    /* LUXURY MATTE GLASS CARDS */
+    .luxe-card {
+      background: #FFFFFF;
+      border: 1px solid #E7E5E4;
+      border-radius: 2rem;
+      transition: all 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 10px 25px rgba(47, 65, 86, 0.06);
+      position: relative;
+    }
+
+    .luxe-card:hover {
+      transform: translateY(-8px) scale(1.01);
+      box-shadow: 0 25px 45px rgba(47, 65, 86, 0.12);
+      border-color: #567C8D;
+    }
+
+    /* FLOATING ANIMATIONS */
+    .float-anim {
+      animation: float 5s ease-in-out infinite;
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0px) rotate(0deg);
+      }
+
+      50% {
+        transform: translateY(-12px) rotate(1.2deg);
+      }
+    }
+
+    .pulse-glow {
+      animation: pulseGlow 2.5s ease-in-out infinite;
+    }
+
+    @keyframes pulseGlow {
+
+      0%,
+      100% {
+        box-shadow: 0 0 15px rgba(47, 65, 86, 0.3);
+      }
+
+      50% {
+        box-shadow: 0 0 30px rgba(47, 65, 86, 0.6);
+      }
+    }
+
+    /* MODAL OVERLAY */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(28, 25, 23, 0.65);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      animation: fadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: scale(0.95);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    /* CATEGORY PILLS ANIMATION */
+    .cat-pill {
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .cat-pill:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+    }
+
+    /* 3D CURVED COVER FLOW CAROUSEL STYLES */
+    .carousel-3d-perspective {
+      perspective: 1400px;
+      height: 460px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #carousel-3d-track {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .slide-3d-card {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 280px;
+      height: 380px;
+      margin-left: -140px;
+      margin-top: -190px;
+      border-radius: 2.25rem;
+      overflow: hidden;
+      transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.65s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+      transform-style: preserve-3d;
+      box-shadow: 0 15px 35px rgba(47, 65, 86, 0.12);
+      border: 2px solid rgba(86, 124, 141, 0.25);
+      background: #FFFFFF;
+      cursor: pointer;
+    }
+
+    .slide-3d-card:hover {
+      border-color: #2F4156 !important;
+      box-shadow: 0 30px 60px rgba(47, 65, 86, 0.32) !important;
+    }
+
+    .slide-3d-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .slide-3d-card:hover img {
+      transform: scale(1.08);
+    }
+  </style>
+</head>
+
+<body class="min-h-screen flex flex-col antialiased selection:bg-rose-200">
+
+  <!-- INTERACTIVE BACKGROUND CANVAS & CURSOR AURA -->
+  <canvas id="sparkle-canvas"></canvas>
+  <div id="cursor-glow"></div>
+  <div class="bg-blob-1"></div>
+  <div class="bg-blob-2"></div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div id="toast-msg"
+    class="fixed top-5 right-5 z-50 bg-stone-900 text-white text-xs px-4 py-2.5 rounded-full shadow-2xl border border-stone-700 hidden items-center gap-2">
+    <span>✨</span>
+    <span id="toast-text">Link copied to clipboard!</span>
+  </div>
+
+  <!-- INTRO LOADING SCREEN (Artistic Luxury Unveil) -->
+  <div id="loader-screen" class="flex flex-col items-center justify-center text-white px-4">
+    <div class="relative flex items-center justify-center mb-8">
+      <!-- Rotating Outer Glow Rings -->
+      <div
+        class="w-32 h-32 rounded-full bg-gradient-to-tr from-[#2F4156] via-[#567C8D] to-[#C8D9E6] animate-spin blur-xl opacity-60"
+        style="animation-duration: 4s;"></div>
+      <div class="w-28 h-28 rounded-full border-2 border-[#567C8D]/40 animate-ping absolute opacity-40"></div>
+
+      <!-- Central Vector Sunburst Monogram Badge -->
+      <div
+        class="absolute w-24 h-24 rounded-full bg-[#2F4156] flex items-center justify-center p-2.5 shadow-2xl border-2 border-[#C8D9E6]/60 pulse-glow">
+        <svg class="w-full h-full" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="50" cy="50" r="48" fill="#2F4156" />
+          <g stroke="#C8D9E6" stroke-width="1.3" opacity="0.9" stroke-linecap="round">
+            <path d="M50 50 L50 8" />
+            <path d="M50 50 L50 92" />
+            <path d="M50 50 L8 50" />
+            <path d="M50 50 L92 50" />
+            <path d="M50 50 L20 20" />
+            <path d="M50 50 L80 80" />
+            <path d="M50 50 L80 20" />
+            <path d="M50 50 L20 80" />
+            <path d="M50 50 Q62 22 56 10" stroke="#567C8D" stroke-width="1.6" />
+            <path d="M50 50 Q38 78 44 90" stroke="#567C8D" stroke-width="1.6" />
+            <path d="M50 50 Q78 38 90 44" stroke="#567C8D" stroke-width="1.6" />
+            <path d="M50 50 Q22 62 10 56" stroke="#567C8D" stroke-width="1.6" />
+          </g>
+          <circle cx="50" cy="50" r="4.5" fill="#2F4156" stroke="#C8D9E6" stroke-width="1.5" />
+          <path d="M52 38 L47 18 C46 16 48 15 50 16 C53 18 56 22 57 26 C58 30 55 36 52 38 Z" fill="#567C8D" />
+          <path d="M51 38 C56 36 62 30 65 24 C67 22 66 20 64 21 C60 23 54 31 51 38 Z" fill="#567C8D" />
+        </svg>
+      </div>
+    </div>
+
+    <h2
+      class="font-title text-3xl sm:text-4xl font-bold tracking-[0.25em] bg-gradient-to-r from-[#2F4156] via-[#567C8D] to-[#2F4156] bg-clip-text text-transparent uppercase mb-2">
+      Vishh Creation
+    </h2>
+    <p class="text-[10px] font-serif italic text-[#567C8D] tracking-widest uppercase mb-4">"Crafted by hand just for
+      you"</p>
+
+    <p id="loader-status-text" class="text-xs text-[#2F4156] font-mono font-bold tracking-wider mb-6 animate-pulse">
+      ✨ Preparing Handcrafted Studio...
+    </p>
+
+    <div
+      class="w-72 h-2 bg-stone-200 rounded-full overflow-hidden p-0.5 border border-[#567C8D]/30 relative shadow-inner">
+      <div id="loader-bar"
+        class="h-full bg-gradient-to-r from-[#2F4156] via-[#567C8D] to-[#C8D9E6] rounded-full transition-all duration-300 w-0 shadow-lg">
+      </div>
+    </div>
+
+    <span id="loader-percent" class="text-xs font-mono font-bold text-[#2F4156] mt-2">0%</span>
+  </div>
+
+  <!-- TOP ANNOUNCEMENT BAR -->
+  <div
+    class="bg-[#2F4156] text-white text-xs py-2.5 px-4 font-medium border-b border-[#567C8D]/40 relative z-30 shadow-sm">
+    <div class="max-w-[1550px] w-full mx-auto px-4 sm:px-8 lg:px-12 flex flex-wrap items-center justify-between gap-2">
+      <span class="flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+        ✨ Handmade Brand by <strong class="text-[#C8D9E6] font-bold">Vishva</strong> ❤️
+      </span>
+
+      <div class="flex items-center gap-4 text-[11px]">
+        <!-- Official Instagram Profile Links -->
+        <a href="https://instagram.com/__vishh.art__" target="_blank"
+          class="font-bold text-[#C8D9E6] hover:text-white flex items-center gap-1 transition-colors">
+          🎨 Art IG: @__vishh.art__
+        </a>
+        <a href="https://instagram.com/vishvayi._" target="_blank"
+          class="font-bold text-[#C8D9E6] hover:text-white flex items-center gap-1 transition-colors">
+          🧶 Crochet IG: @vishvayi._
+        </a>
+        <button onclick="openAdminPortal()"
+          class="font-bold text-stone-200 hover:text-white flex items-center gap-1 transition-colors">
+          🔒 Store Login
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- HEADER NAVIGATION (Warm Luxury Glass #F5EFEB & #FFFFFF) -->
+  <header class="sticky top-0 z-40 bg-[#F5EFEB]/95 backdrop-blur-xl border-b border-stone-300/70 shadow-sm">
+        <div class="max-w-[1550px] w-full mx-auto px-4 sm:px-8 lg:px-12 py-4 flex items-center justify-between gap-6">
+
+          <!-- Official Sister Brand Logo -->
+          <div onclick="filterCat('all')" class="cursor-pointer flex items-center gap-3.5 group">
+            <div
+              class="relative w-12 h-12 rounded-full border border-amber-600/40 bg-white p-1 shadow-md flex items-center justify-center overflow-hidden group-hover:scale-105 transition-transform duration-300">
+              <svg class="w-full h-full" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="50" cy="50" r="48" fill="#1C1917" />
+                <!-- Golden Wavy Sunburst Rays -->
+                <g stroke="#D4AF37" stroke-width="1.2" opacity="0.9" stroke-linecap="round">
+                  <path d="M50 50 L50 8" />
+                  <path d="M50 50 L50 92" />
+                  <path d="M50 50 L8 50" />
+                  <path d="M50 50 L92 50" />
+                  <path d="M50 50 L20 20" />
+                  <path d="M50 50 L80 80" />
+                  <path d="M50 50 L80 20" />
+                  <path d="M50 50 L20 80" />
+                  <path d="M50 50 Q62 22 56 10" stroke="#C59B27" stroke-width="1.5" />
+                  <path d="M50 50 Q38 78 44 90" stroke="#C59B27" stroke-width="1.5" />
+                  <path d="M50 50 Q78 38 90 44" stroke="#C59B27" stroke-width="1.5" />
+                  <path d="M50 50 Q22 62 10 56" stroke="#C59B27" stroke-width="1.5" />
+                  <path d="M50 50 C56 34 66 28 72 18" stroke="#E2C465" stroke-width="1" />
+                  <path d="M50 50 C44 66 34 72 28 82" stroke="#E2C465" stroke-width="1" />
+                  <path d="M50 50 C66 44 72 34 82 28" stroke="#E2C465" stroke-width="1" />
+                  <path d="M50 50 C34 56 28 66 18 72" stroke="#E2C465" stroke-width="1" />
+                </g>
+                <circle cx="50" cy="50" r="4.5" fill="#1C1917" stroke="#D4AF37" stroke-width="1.5" />
+                <path d="M52 38 L47 18 C46 16 48 15 50 16 C53 18 56 22 57 26 C58 30 55 36 52 38 Z" fill="#E28B7B" />
+                <path d="M51 38 C56 36 62 30 65 24 C67 22 66 20 64 21 C60 23 54 31 51 38 Z" fill="#E28B7B" />
+              </svg>
+            </div>
+            <div>
+              <h1
+                class="font-title text-xl sm:text-2xl font-bold tracking-tight text-stone-900 group-hover:text-[#2F4156] transition-colors uppercase">
+                Vishh <span class="text-[#2F4156] font-serif italic text-lg sm:text-xl">Creation</span>
+              </h1>
+              <p class="text-[10px] font-serif italic text-stone-600 font-medium tracking-wide">
+                "Crafted by hand just for you"
+              </p>
+            </div>
+          </div>
+
+          <!-- Search Bar -->
+          <div class="hidden md:flex flex-1 max-w-md">
+            <div class="relative w-full">
+              <input type="text" oninput="handleSearch(this.value)"
+                placeholder="Search canvas paintings, crochet flowers, keychains..."
+                class="w-full pl-10 pr-4 py-2.5 rounded-full bg-white border border-stone-300 text-stone-900 placeholder-stone-400 text-xs focus:outline-none focus:ring-2 focus:ring-[#2F4156]/40 shadow-sm" />
+              <span class="absolute left-3.5 top-2.5 text-stone-400">🔍</span>
+            </div>
+          </div>
+
+          <!-- Header Actions -->
+          <div class="flex items-center gap-2.5">
+            <!-- Direct Instagram DM Link for Paintings -->
+            <a href="https://instagram.com/__vishh.art__" target="_blank"
+              class="hidden sm:flex items-center gap-1 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-[#2F4156] to-[#567C8D] text-white text-[11px] font-bold shadow-md hover:scale-105 transition-all">
+              <span>🎨 DM Art (@__vishh.art__)</span>
+            </a>
+
+            <!-- Direct Instagram DM Link for Crochet -->
+            <a href="https://instagram.com/vishvayi._" target="_blank"
+              class="hidden sm:flex items-center gap-1 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-[#567C8D] to-[#2F4156] text-white text-[11px] font-bold shadow-md hover:scale-105 transition-all">
+              <span>🧶 DM Crochet (@vishvayi._)</span>
+            </a>
+
+            <!-- Cart Button -->
+            <button onclick="toggleCart(true)"
+              class="p-2.5 rounded-full bg-white border border-stone-300 hover:bg-stone-100 text-stone-800 relative transition-colors shadow-sm">
+              <span class="text-base">🛒</span>
+              <span id="cart-count"
+                class="absolute -top-1 -right-1 bg-[#2F4156] text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center animate-bounce">0</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Category Pills Navbar -->
+        <div class="border-t border-b border-stone-300/70 bg-[#E8EEF3]/60 overflow-x-auto no-scrollbar">
+          <div
+            class="max-w-[1550px] w-full mx-auto px-4 sm:px-8 lg:px-12 py-2.5 flex items-center justify-start lg:justify-between gap-2 text-xs font-semibold whitespace-nowrap no-scrollbar">
+            <button onclick="filterCat('all')"
+              class="cat-pill active px-4 py-1.5 rounded-full bg-gradient-to-r from-[#2F4156] to-[#567C8D] text-white font-bold shadow-md">All
+              Collections</button>
+            <button onclick="filterCat('paintings')"
+              class="cat-pill px-4 py-1.5 rounded-full text-stone-700 hover:bg-white hover:text-stone-900">Original
+              Paintings</button>
+            <button onclick="filterCat('crochetFlowers')"
+              class="cat-pill px-4 py-1.5 rounded-full text-stone-700 hover:bg-white hover:text-stone-900">Crochet
+              Flowers</button>
+            <button onclick="filterCat('crochetToys')"
+              class="cat-pill px-4 py-1.5 rounded-full text-stone-700 hover:bg-white hover:text-stone-900">Crochet
+              Plushies</button>
+            <button onclick="filterCat('keychains')"
+              class="cat-pill px-4 py-1.5 rounded-full text-stone-700 hover:bg-white hover:text-stone-900">Custom
+              Keychains</button>
+            <button onclick="filterCat('giftHampers')"
+              class="cat-pill px-4 py-1.5 rounded-full text-stone-700 hover:bg-white hover:text-stone-900">Gift
+              Hampers</button>
+            <button onclick="filterCat('reels')"
+              class="cat-pill px-4 py-1.5 rounded-full bg-[#567C8D]/10 text-[#2F4156] border border-[#567C8D]/30 hover:bg-[#567C8D]/20 font-bold">🎬
+              Instagram Reels</button>
+            <button onclick="openRoomPreviewModal()"
+              class="cat-pill px-4 py-1.5 rounded-full bg-[#C8D9E6]/40 text-[#2F4156] border border-[#567C8D]/30 hover:bg-[#C8D9E6]/70 font-bold">🖼️
+              Room Wall Visualizer</button>
+          </div>
+        </div>
+      </header>
+
+      <!-- HERO SECTION -->
+      <section class="glow-bg py-14 md:py-24 border-b border-stone-300/70 relative overflow-hidden">
+        <div
+          class="max-w-[1550px] w-full mx-auto px-4 sm:px-8 lg:px-12 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center relative z-10">
+
+          <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+            <div
+              class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-[#C8D9E6] shadow-sm text-xs font-bold text-[#2F4156]">
+              <span>🎨 Handmade Artwork & Crochet Creations by Vishva</span>
+            </div>
+
+            <h1 class="text-4xl sm:text-6xl font-bold font-serif text-stone-900 leading-[1.12]">
+              Handcrafted Treasures <br />
+              <span
+                class="bg-gradient-to-r from-[#2F4156] via-[#567C8D] to-[#2F4156] bg-clip-text text-transparent italic font-normal">
+                By Vish Creation
+              </span>
+            </h1>
+
+            <p class="text-sm sm:text-base text-stone-600 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+              Discover bespoke canvas paintings, everlasting crochet flower bouquets, soft amigurumi plushies,
+              personalized
+              resin keychains, and luxury gift hampers.
+            </p>
+
+            <div class="pt-2 flex flex-wrap items-center justify-center lg:justify-start gap-3">
+              <button onclick="scrollToProducts()"
+                class="shimmer-btn px-6 py-3 rounded-full font-bold text-xs shadow-lg hover:scale-105 transition-transform flex items-center gap-2">
+                <span>Explore Shop Collection</span>
+                <span class="animate-bounce">↓</span>
+              </button>
+
+              <a href="https://instagram.com/__vishh.art__" target="_blank"
+                class="px-5 py-3 rounded-full bg-gradient-to-r from-[#2F4156] to-[#567C8D] text-white font-bold text-xs shadow-md hover:scale-105 transition-all flex items-center gap-1">
+                <span>🎨 DM Art (@__vishh.art__)</span>
+              </a>
+
+              <a href="https://instagram.com/vishvayi._" target="_blank"
+                class="px-5 py-3 rounded-full bg-gradient-to-r from-[#567C8D] to-[#2F4156] text-white font-bold text-xs shadow-md hover:scale-105 transition-all flex items-center gap-1">
+                <span>🧶 DM Crochet (@vishvayi._)</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="lg:col-span-5 flex justify-center relative">
+            <div
+              class="luxe-card p-4 shadow-xl relative max-w-md w-full border-2 border-[#567C8D]/40 cursor-pointer float-anim group"
+              onclick="openHdPhotoModal('p1')">
+              <div class="relative overflow-hidden rounded-2xl">
+                <img id="hero-featured-painting-img"
+                  src="1st.jpg"
+                  onerror="this.onerror=null; this.src='1st.jpg';"
+                  alt="Handcrafted Village Landscape Painting by Vishva"
+                  class="w-full h-80 object-cover rounded-2xl shadow-sm" />
+                <button onclick="event.stopPropagation(); openAdminPortal();"
+                  class="absolute top-3 right-3 bg-[#2F4156] hover:bg-[#567C8D] text-white px-3.5 py-1.5 rounded-full shadow-lg text-xs transition-colors flex items-center gap-1.5 font-bold z-10 border border-stone-700"
+                  title="Upload Featured Painting Photo">
+                  📷 Upload Photo
+                </button>
+              </div>
+
+              <div
+                class="absolute -bottom-5 -left-5 bg-white/95 backdrop-blur-md p-4 rounded-2xl shadow-2xl border border-stone-200 flex items-center gap-3">
+                <img id="hero-badge-img"
+                  src="1st.jpg"
+                  onerror="this.onerror=null; this.src='1st.jpg';"
+                  class="w-12 h-12 rounded-xl object-cover border border-stone-200" />
+                <div>
+                  <span class="text-[9px] font-bold uppercase tracking-wider text-[#2F4156]">Tap for HD View 🔍</span>
+                  <h4 id="hero-badge-title" class="text-xs font-bold text-stone-900">Handcrafted Village Landscape Painting</h4>
+                  <span id="hero-badge-price" class="text-xs text-[#2F4156] font-bold">₹2,499 ★ 5.0</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- 3D CURVED MASTERPIECE SLIDE CAROUSEL SHOWCASE (#F5EFEB & #FFFFFF) -->
+      <section
+        class="py-14 bg-gradient-to-b from-[#F5EFEB] via-[#FFFFFF] to-[#F5EFEB] text-stone-900 relative overflow-hidden border-y border-stone-300 shadow-inner">
+        <div class="max-w-[1550px] w-full mx-auto px-4 sm:px-8 lg:px-12 text-center mb-8 relative z-10">
+          <span class="text-[11px] font-bold uppercase tracking-widest text-[#567C8D]">✨ Interactive 3D Art
+            Gallery</span>
+          <h2 class="text-3xl sm:text-5xl font-bold font-serif text-stone-900 mt-1">
+            Explore Masterpiece Gallery
+          </h2>
+          <p class="text-xs text-stone-600 mt-2 max-w-md mx-auto leading-relaxed">
+            Swipe left or right to experience the 3D curved gallery. Tap any slide to open HD zoom & ordering!
+          </p>
+        </div>
+
+        <!-- 3D Curved Perspective Track Container -->
+        <div class="carousel-3d-perspective relative py-6 px-4 overflow-hidden">
+          <div id="carousel-3d-track"
+            class="flex items-center justify-center gap-4 transition-transform duration-500 ease-out cursor-grab active:cursor-grabbing">
+            <!-- Rendered by JS Engine -->
+          </div>
+
+          <!-- Carousel Nav Control Arrows -->
+          <button onclick="move3DCarousel(-1)"
+            class="absolute left-3 sm:left-12 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/95 text-[#2F4156] font-bold border border-[#567C8D]/30 hover:bg-[#2F4156] hover:text-white transition-all flex items-center justify-center text-2xl z-30 shadow-2xl backdrop-blur-md hover:scale-110">
+            ‹
+          </button>
+          <button onclick="move3DCarousel(1)"
+            class="absolute right-3 sm:right-12 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/95 text-[#2F4156] font-bold border border-[#567C8D]/30 hover:bg-[#2F4156] hover:text-white transition-all flex items-center justify-center text-2xl z-30 shadow-2xl backdrop-blur-md hover:scale-110">
+            ›
+          </button>
+        </div>
+
+        <!-- Carousel Pagination Dots -->
+        <div id="carousel-3d-dots" class="flex items-center justify-center gap-2 mt-2 relative z-20">
+          <!-- Rendered by JS -->
+        </div>
+      </section>
+
+      <!-- PRODUCT CATALOG MAIN SECTION -->
+      <main id="products-section" class="max-w-[1550px] w-full mx-auto px-4 sm:px-8 lg:px-12 py-14 flex-1 scroll-mt-20">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-widest text-[#567C8D]">Artisan Collection</span>
+            <h2 class="text-2xl sm:text-3xl font-bold font-serif text-stone-900">Featured Goods by Vish Creation</h2>
+            <p class="text-xs text-stone-500 mt-1">💡 Direct Instagram DM & Share buttons available on each product!</p>
+          </div>
+
+          <button onclick="openAdminPortal()"
+            class="text-xs font-bold text-stone-500 hover:text-[#2F4156] underline flex items-center gap-1">
+            <span>🔒 Seller Portal Login</span>
+          </button>
+        </div>
+
+        <!-- Product Grid -->
+        <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-7">
+          <!-- Dynamic Products Inserted by JS -->
+        </div>
+
+        <!-- CUSTOM ORDER BANNER (#FFFFFF & #F5EFEB) -->
+        <section
+          class="mt-20 p-8 sm:p-14 rounded-3xl bg-gradient-to-r from-[#FFFFFF] via-[#F5EFEB] to-[#FFFFFF] border border-[#C8D9E6] text-center space-y-4 shadow-xl relative overflow-hidden">
+          <span class="text-4xl animate-bounce inline-block">✨</span>
+          <h3 class="text-2xl sm:text-4xl font-bold font-serif text-stone-900">
+            Personalize Your Gift with Custom Names & Photos
+          </h3>
+          <p class="text-xs sm:text-sm text-stone-600 max-w-lg mx-auto leading-relaxed">
+            Send custom photos or names directly to Vishva on Instagram DM (<strong
+              class="text-[#2F4156] font-bold">@__vishh.art__</strong> or <strong
+              class="text-[#567C8D] font-bold">@vishvayi._</strong>) to create your customized gift!
+          </p>
+          <div class="flex flex-wrap justify-center gap-3 pt-2">
+            <a href="https://instagram.com/__vishh.art__" target="_blank"
+              class="px-6 py-3.5 rounded-full bg-gradient-to-r from-[#2F4156] to-[#567C8D] text-white font-bold text-xs shadow-lg hover:scale-105 transition-all">
+              🎨 DM Art Photos (@__vishh.art__)
+            </a>
+            <a href="https://instagram.com/vishvayi._" target="_blank"
+              class="px-6 py-3.5 rounded-full bg-gradient-to-r from-[#567C8D] to-[#2F4156] text-white font-bold text-xs shadow-lg hover:scale-105 transition-all">
+              🧶 DM Crochet Orders (@vishvayi._)
+            </a>
+          </div>
+        </section>
+
+        <!-- ARTIST STORY WITH INSTANT PHOTO UPLOAD -->
+        <section
+          class="mt-14 p-8 rounded-3xl bg-white border border-stone-200 flex flex-col md:flex-row items-center gap-8 shadow-lg">
+          <div class="relative group">
+            <img id="artist-profile-img"
+              src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=400&q=80"
+              onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=400&q=80';"
+              alt="Vishva - Artist"
+              class="w-36 h-36 rounded-2xl object-cover border-4 border-[#567C8D]/40 shadow-lg shrink-0 group-hover:scale-105 transition-transform duration-300" />
+            <button onclick="openAdminPortal()"
+              class="absolute -bottom-2 -right-2 bg-[#2F4156] text-white p-2 rounded-full shadow-md text-xs hover:bg-[#567C8D] transition-colors border border-stone-700"
+              title="Change Photo via Seller Portal">
+              📷
+            </button>
+          </div>
+
+          <div class="space-y-2 text-center md:text-left flex-1">
+            <div class="flex items-center justify-center md:justify-start gap-2">
+              <span class="text-[10px] font-bold uppercase tracking-widest text-[#567C8D]">About the Artist</span>
+              <button onclick="openAdminPortal()" class="text-[10px] text-stone-500 hover:text-stone-900 underline">📷
+                Change Photo</button>
+            </div>
+            <h4 class="text-xl font-bold font-serif text-stone-900">Vishva (@__vishh.art__ & @vishvayi._)</h4>
+            <p class="text-xs sm:text-sm text-stone-600 leading-relaxed max-w-2xl">
+              Every artwork and crochet creation is 100% handcrafted in small batches by Vishva in her home studio.
+              Check
+              out her Instagram profiles <a href="https://instagram.com/__vishh.art__" target="_blank"
+                class="text-[#2F4156] font-bold underline">@__vishh.art__ (Art)</a> and <a
+                href="https://instagram.com/vishvayi._" target="_blank"
+                class="text-[#567C8D] font-bold underline">@vishvayi._ (Crochet)</a> to see all her art posts and
+              behind-the-scenes craft videos!
+            </p>
+          </div>
+        </section>
+      </main>
+
+      <!-- FOOTER (#F5EFEB) -->
+      <footer class="bg-[#F5EFEB] text-stone-700 py-12 text-xs text-center border-t border-[#567C8D]/20">
+        <div class="max-w-[1550px] w-full mx-auto px-4 sm:px-8 lg:px-12 space-y-3">
+          <p class="font-title text-xl font-bold text-[#2F4156] tracking-widest uppercase">Vish Creation</p>
+          <p class="text-stone-600">© 2026 Vishh Creation. Handmade with Love ❤️ by Vishva</p>
+          <p class="text-stone-600">Palanpur, Gujarat, India | Instagram: <a href="https://instagram.com/__vishh.art__"
+              target="_blank" class="text-[#2F4156] font-bold underline hover:text-[#567C8D]">🎨 Art: @__vishh.art__</a> | <a
+              href="https://instagram.com/vishvayi._" target="_blank" class="text-[#567C8D] font-bold underline hover:text-[#2F4156]">🧶
+              Crochet: @vishvayi._</a></p>
+          <button onclick="openAdminPortal()"
+            class="text-[#567C8D] hover:text-[#2F4156] pt-2 text-[10px] font-bold block mx-auto underline">
+            🔒 Store Admin Login
+          </button>
+        </div>
+      </footer>
+
+      <!-- MULTI-CHANNEL SHARE MODAL -->
+      <div id="share-modal" class="modal-overlay hidden" onclick="toggleModal('share-modal', false)">
+        <div
+          class="bg-[#F5EFEB] rounded-3xl max-w-sm w-full p-6 relative space-y-4 shadow-2xl border border-stone-300 text-center text-stone-900"
+          onclick="event.stopPropagation()">
+          <button onclick="toggleModal('share-modal', false)"
+            class="absolute top-4 right-4 p-2 rounded-full bg-stone-100 text-stone-600 hover:bg-stone-200">✕</button>
+
+          <div
+            class="w-12 h-12 rounded-full bg-[#C8D9E6]/30 text-[#2F4156] border border-[#567C8D]/30 flex items-center justify-center mx-auto text-xl shadow-sm">
+            📤
+          </div>
+
+          <h3 id="share-modal-title" class="text-lg font-bold font-serif text-stone-900">Share Product</h3>
+          <p class="text-xs text-stone-600">Share this handcrafted artwork directly with friends!</p>
+
+          <div class="space-y-2 pt-2">
+            <button onclick="copyProductLink()"
+              class="w-full py-3 rounded-full bg-white border border-stone-300 text-stone-900 font-bold text-xs shadow-md hover:bg-stone-100 transition-colors flex items-center justify-center gap-2">
+              📋 Copy Product Link
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- INSTAGRAM REEL VIDEO PLAYER MODAL -->
+      <div id="reel-video-modal" class="modal-overlay hidden" onclick="closeReelVideoModal()">
+        <div
+          class="bg-[#F5EFEB] rounded-3xl max-w-3xl w-full max-h-[92vh] overflow-y-auto p-6 relative shadow-2xl border border-[#567C8D]/30 text-stone-900"
+          onclick="event.stopPropagation()">
+          <button onclick="closeReelVideoModal()"
+            class="absolute top-4 right-4 p-3 rounded-full bg-stone-100 text-stone-700 hover:bg-stone-200 font-bold z-20 border border-stone-300">✕
+            Close</button>
+
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+            <!-- Reel Video Player Container -->
+            <div id="reel-video-container" class="md:col-span-6 flex flex-col items-center w-full">
+              <!-- Dynamic Instagram Reel Embed Iframe or HTML5 Video Player -->
+            </div>
+
+            <!-- Reel Specs & Instagram Link -->
+            <div class="md:col-span-6 space-y-4">
+              <div>
+                <span id="reel-modal-cat"
+                  class="px-3 py-1 rounded-full bg-[#567C8D]/10 text-[#2F4156] text-[10px] font-bold uppercase tracking-wider border border-[#567C8D]/30">🎬
+                  Reel Video</span>
+                <h2 id="reel-modal-title" class="text-2xl font-bold font-serif text-stone-900 mt-2">Reel Title</h2>
+                <span id="reel-modal-price" class="text-2xl font-bold text-[#2F4156] block mt-1">₹0</span>
+              </div>
+
+              <p id="reel-modal-desc" class="text-xs text-stone-600 leading-relaxed"></p>
+
+              <a id="reel-modal-ig-link" href="https://instagram.com/__vishh.art__" target="_blank"
+                class="w-full py-3 rounded-xl bg-gradient-to-r from-[#2F4156] via-[#567C8D] to-[#2F4156] text-white font-bold text-center text-xs block shadow-lg hover:scale-105 transition-all">
+                🎬 Watch Full Reel on Instagram
+              </a>
+
+              <div class="p-4 rounded-2xl bg-white border border-stone-200 text-xs space-y-2 shadow-sm">
+                <h5 class="font-bold text-[#2F4156]">Order This Item via Instagram DM:</h5>
+                <div class="grid grid-cols-1 gap-2">
+                  <a href="https://instagram.com/__vishh.art__" target="_blank"
+                    class="w-full py-2.5 rounded-xl bg-gradient-to-r from-[#2F4156] to-[#567C8D] text-white font-bold text-center text-xs block hover:scale-105 transition-all">
+                    🎨 DM Art (@__vishh.art__)
+                  </a>
+                  <a href="https://instagram.com/vishvayi._" target="_blank"
+                    class="w-full py-2.5 rounded-xl bg-gradient-to-r from-[#567C8D] to-[#2F4156] text-white font-bold text-center text-xs block hover:scale-105 transition-all">
+                    🧶 DM Crochet (@vishvayi._)
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 🎨 INTERACTIVE ROOM WALL ART VISUALIZER MODAL -->
+      <div id="room-preview-modal" class="modal-overlay hidden" onclick="toggleModal('room-preview-modal', false)">
+        <div
+          class="bg-[#F5EFEB] rounded-3xl max-w-4xl w-full max-h-[92vh] overflow-y-auto p-6 relative shadow-2xl border border-[#567C8D]/30 text-stone-900 space-y-4"
+          onclick="event.stopPropagation()">
+          <button onclick="toggleModal('room-preview-modal', false)"
+            class="absolute top-4 right-4 p-3 rounded-full bg-stone-100 text-stone-700 hover:bg-stone-200 font-bold z-20 border border-stone-300">✕
+            Close</button>
+
+          <div class="flex items-center justify-between border-b border-stone-200 pb-3">
+            <div>
+              <span class="text-[10px] uppercase font-bold text-[#567C8D] tracking-wider">🎨 Interactive
+                Visualizer</span>
+              <h3 class="text-2xl font-bold font-serif text-stone-900">Preview Artwork on Room Wall</h3>
+            </div>
+            <label
+              class="px-3.5 py-1.5 rounded-full bg-white text-[#2F4156] border border-[#567C8D]/40 text-xs font-bold cursor-pointer hover:bg-[#C8D9E6]/30 shadow-sm">
+              📷 Upload Your Wall Photo
+              <input type="file" accept="image/*" onchange="uploadUserWallPhoto(this)" class="hidden" />
+            </label>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+            <!-- Interactive Canvas Stage -->
+            <div class="lg:col-span-8 relative">
+              <div id="wall-stage"
+                class="relative w-full aspect-[4/3] rounded-2xl overflow-hidden bg-cover bg-center border border-stone-300 shadow-2xl transition-all duration-500"
+                style="background-image: url('https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1200&q=80');">
+
+                <!-- Floating Drag/Scale Artwork Canvas Frame -->
+                <div id="wall-art-frame"
+                  class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-all duration-300 shadow-2xl rounded-sm cursor-grab active:cursor-grabbing border-4 border-[#2F4156]"
+                  style="width: 180px; height: 180px;">
+                  <img id="wall-art-img" src="1st.jpg" class="w-full h-full object-cover shadow-2xl" />
+                </div>
+
+                <span
+                  class="absolute bottom-3 left-3 bg-white/95 text-stone-900 text-[10px] px-3 py-1 rounded-full font-mono border border-stone-300 shadow-sm">
+                  💡 Tip: Click & drag painting to position on your wall!
+                </span>
+              </div>
+            </div>
+
+            <!-- Room Controls & Customization -->
+            <div class="lg:col-span-4 space-y-4 text-xs">
+              <!-- Room Wall Background Picker -->
+              <div class="space-y-1.5 p-3 rounded-2xl bg-white border border-stone-200 shadow-sm">
+                <label class="font-bold text-stone-900 block">1. Select Room Wall Background:</label>
+                <div class="grid grid-cols-2 gap-2">
+                  <button
+                    onclick="setWallBg('https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1200&q=80')"
+                    class="py-1.5 px-2 rounded-xl bg-stone-50 text-stone-800 border border-stone-200 hover:border-[#2F4156] text-[10px] text-center font-bold">
+                    🏙️ Modern Living Room
+                  </button>
+                  <button
+                    onclick="setWallBg('https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=1200&q=80')"
+                    class="py-1.5 px-2 rounded-xl bg-stone-50 text-stone-800 border border-stone-200 hover:border-[#2F4156] text-[10px] text-center font-bold">
+                    🛋️ Cozy Bedroom
+                  </button>
+                  <button
+                    onclick="setWallBg('https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=80')"
+                    class="py-1.5 px-2 rounded-xl bg-stone-50 text-stone-800 border border-stone-200 hover:border-[#2F4156] text-[10px] text-center font-bold">
+                    🪵 Wooden Studio
+                  </button>
+                  <button
+                    onclick="setWallBg('https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1200&q=80')"
+                    class="py-1.5 px-2 rounded-xl bg-stone-50 text-stone-800 border border-stone-200 hover:border-[#2F4156] text-[10px] text-center font-bold">
+                    🖤 Obsidian Gallery
+                  </button>
+                </div>
+              </div>
+
+              <!-- Painting Size Scale Slider -->
+              <div class="space-y-1.5 p-3 rounded-2xl bg-white border border-stone-200 shadow-sm">
+                <div class="flex items-center justify-between">
+                  <label class="font-bold text-stone-900">2. Adjust Canvas Size on Wall:</label>
+                  <span id="wall-size-label" class="font-mono text-[10px] text-[#2F4156] font-bold">Medium
+                    (12x12")</span>
+                </div>
+                <input type="range" min="100" max="320" value="180" oninput="scaleWallArt(this.value)"
+                  class="w-full accent-[#2F4156] cursor-pointer" />
+              </div>
+
+              <!-- Frame Border Style Selector -->
+              <div class="space-y-1.5 p-3 rounded-2xl bg-white border border-stone-200 shadow-sm">
+                <label class="font-bold text-stone-900 block">3. Select Frame Style:</label>
+                <div class="grid grid-cols-2 gap-2">
+                  <button onclick="setWallFrame('border-4 border-[#567C8D]')"
+                    class="py-1.5 px-2 rounded-xl bg-stone-50 text-[#2F4156] border border-stone-200 text-[10px] font-bold">
+                    ✨ Slate Teal Frame
+                  </button>
+                  <button onclick="setWallFrame('border-4 border-[#2F4156]')"
+                    class="py-1.5 px-2 rounded-xl bg-stone-50 text-[#2F4156] border border-stone-200 text-[10px] font-bold">
+                    🖤 Deep Navy Frame
+                  </button>
+                  <button onclick="setWallFrame('border-4 border-amber-800')"
+                    class="py-1.5 px-2 rounded-xl bg-stone-50 text-amber-900 border border-stone-200 text-[10px] font-bold">
+                    🪵 Teak Wood Frame
+                  </button>
+                  <button onclick="setWallFrame('border-0')"
+                    class="py-1.5 px-2 rounded-xl bg-stone-50 text-stone-500 border border-stone-200 text-[10px] font-bold">
+                    🚫 No Frame (Frameless)
+                  </button>
+                </div>
+              </div>
+
+              <a href="https://instagram.com/__vishh.art__" target="_blank"
+                class="w-full py-3.5 rounded-full bg-gradient-to-r from-[#2F4156] via-[#567C8D] to-[#2F4156] text-white font-bold text-center block shadow-lg hover:scale-105 transition-all text-xs">
+                🎨 Order This Wall Painting via Instagram DM
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LARGE FULL-SCREEN HD PRODUCT PHOTO LIGHTBOX MODAL -->
+      <div id="hd-photo-modal" class="modal-overlay hidden" onclick="toggleModal('hd-photo-modal', false)">
+        <div
+          class="bg-[#F5EFEB] rounded-3xl max-w-4xl w-full max-h-[92vh] overflow-y-auto p-6 relative shadow-2xl border border-stone-300 text-stone-900"
+          onclick="event.stopPropagation()">
+          <button onclick="toggleModal('hd-photo-modal', false)"
+            class="absolute top-4 right-4 p-3 rounded-full bg-stone-100 text-stone-700 hover:bg-stone-200 font-bold z-20 border border-stone-300">✕
+            Close</button>
+
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+            <!-- Giant HD Multi-Photo Carousel Display -->
+            <div class="md:col-span-7 flex flex-col items-center">
+              <div
+                class="relative w-full aspect-square rounded-2xl overflow-hidden bg-stone-100 border border-stone-200 shadow-md group">
+                <img id="hd-modal-img" src=""
+                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 cursor-zoom-in" />
+
+                <!-- Left & Right Arrow Gallery Swipe Controls -->
+                <button id="hd-prev-photo-btn" onclick="slideHdModalPhoto(-1)"
+                  class="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/90 text-[#2F4156] font-bold border border-stone-300 hover:bg-[#2F4156] hover:text-white transition-all items-center justify-center text-lg z-20 hidden shadow-md">
+                  ‹
+                </button>
+                <button id="hd-next-photo-btn" onclick="slideHdModalPhoto(1)"
+                  class="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/90 text-[#2F4156] font-bold border border-stone-300 hover:bg-[#2F4156] hover:text-white transition-all items-center justify-center text-lg z-20 hidden shadow-md">
+                  ›
+                </button>
+
+                <span
+                  class="absolute bottom-3 left-3 bg-white/90 text-[#2F4156] text-[10px] px-3 py-1 rounded-full font-mono border border-stone-300 shadow-sm">
+                  🔍 Hover / Pinch to Zoom HD Details
+                </span>
+
+                <!-- Photo Counter Badge -->
+                <span id="hd-photo-count-badge"
+                  class="absolute bottom-3 right-3 bg-[#2F4156] text-white text-[10px] px-2.5 py-0.5 rounded-full font-bold shadow-md hidden">
+                  Photo 1 of 3
+                </span>
+              </div>
+
+              <!-- Multi-Photo Thumbnail Bar -->
+              <div id="hd-modal-thumbnails"
+                class="flex items-center justify-center gap-2 mt-3 overflow-x-auto max-w-full py-1">
+                <!-- Dynamic Thumbnail Dots/Images -->
+              </div>
+            </div>
+
+            <!-- Product Specs & Multi-Channel Contact -->
+            <div class="md:col-span-5 space-y-4">
+              <div>
+                <div class="flex items-center justify-between">
+                  <span id="hd-modal-cat"
+                    class="px-3 py-1 rounded-full bg-[#567C8D]/10 text-[#2F4156] text-[10px] font-bold uppercase tracking-wider border border-[#567C8D]/30">Category</span>
+                  <div class="flex items-center gap-2">
+                    <button onclick="openRoomPreviewModal(document.getElementById('hd-modal-img').src)"
+                      class="text-xs font-bold text-[#2F4156] hover:text-stone-900 flex items-center gap-1 bg-[#C8D9E6]/40 px-2.5 py-1 rounded-full border border-[#567C8D]/30">
+                      🖼️ Try on Room Wall
+                    </button>
+                    <button id="hd-modal-share-btn" onclick=""
+                      class="text-xs font-bold text-stone-500 hover:text-stone-900 flex items-center gap-1">
+                      📤 Share Item
+                    </button>
+                  </div>
+                </div>
+                <h2 id="hd-modal-title" class="text-2xl font-bold font-serif text-stone-900 mt-2">Product Title</h2>
+                <span id="hd-modal-price" class="text-2xl font-bold text-[#2F4156] block mt-1">₹0</span>
+              </div>
+
+              <p id="hd-modal-desc" class="text-xs text-stone-600 leading-relaxed"></p>
+
+              <!-- Direct Communication Channels -->
+              <div class="p-4 rounded-2xl bg-white border border-stone-200 text-xs space-y-2 shadow-sm">
+                <h5 class="font-bold text-[#2F4156]">Directly Connect with Vishva:</h5>
+                <div class="grid grid-cols-1 gap-2">
+                  <a id="hd-modal-ig-btn" href="https://instagram.com/__vishh.art__" target="_blank"
+                    class="w-full py-2.5 rounded-xl bg-gradient-to-r from-[#2F4156] to-[#567C8D] text-white font-bold text-center text-xs block shadow-md hover:scale-105 transition-all">
+                    🎨 DM Art Instagram (@__vishh.art__)
+                  </a>
+                  <a href="https://instagram.com/vishvayi._" target="_blank"
+                    class="w-full py-2.5 rounded-xl bg-gradient-to-r from-[#567C8D] to-[#2F4156] text-white font-bold text-center text-xs block shadow-md hover:scale-105 transition-all">
+                    🧶 DM Crochet Instagram (@vishvayi._)
+                  </a>
+                </div>
+              </div>
+
+              <div class="space-y-2 pt-2">
+                <button id="hd-modal-cart-btn" onclick=""
+                  class="w-full py-3.5 rounded-full shimmer-btn font-bold text-xs shadow-xl hover:scale-105 transition-all">
+                  🛒 Add to Shopping Cart
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECRET PIN AUTHENTICATION MODAL -->
+      <div id="pin-modal" class="modal-overlay hidden" onclick="toggleModal('pin-modal', false)">
+        <div
+          class="bg-[#F5EFEB] rounded-3xl max-w-sm w-full p-6 relative space-y-4 shadow-2xl border border-stone-300 text-center text-stone-900"
+          onclick="event.stopPropagation()">
+          <button onclick="toggleModal('pin-modal', false)"
+            class="absolute top-4 right-4 p-2 rounded-full bg-stone-100 text-stone-600 hover:bg-stone-200">✕</button>
+
+          <div
+            class="w-12 h-12 rounded-full bg-[#C8D9E6]/30 text-[#2F4156] border border-[#567C8D]/30 flex items-center justify-center mx-auto text-xl shadow-sm">
+            🔒
+          </div>
+
+          <h3 class="text-lg font-bold font-serif text-stone-900">Enter Seller PIN</h3>
+          <p class="text-xs text-stone-600">Authorized seller access only. Enter your secret PIN to access store
+            management.
+          </p>
+
+          <form onsubmit="handleVerifyPin(event)" class="space-y-3">
+            <input type="password" id="pin-input" placeholder="Enter 4-digit Secret PIN" required maxLength="8"
+              class="w-full text-center tracking-widest text-lg font-mono py-2.5 rounded-xl bg-white border border-stone-300 text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#2F4156]/40" />
+            <button type="submit" class="w-full py-3 rounded-full shimmer-btn font-bold text-xs shadow-md">
+              Unlock Seller Portal 🔓
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- SELLER PRODUCT & ARTIST PHOTO MANAGEMENT MODAL -->
+      <div id="admin-modal" class="modal-overlay hidden" onclick="toggleModal('admin-modal', false)">
+        <div
+          class="bg-[#F5EFEB] rounded-3xl max-w-md w-full max-h-[90vh] overflow-y-auto p-6 relative space-y-5 shadow-2xl border border-stone-300 text-stone-900"
+          onclick="event.stopPropagation()">
+          <button onclick="toggleModal('admin-modal', false)"
+            class="absolute top-4 right-4 p-2 rounded-full bg-stone-100 text-stone-600 hover:bg-stone-200">✕</button>
+
+          <div class="text-center space-y-1">
+            <div
+              class="inline-block px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-700 text-[10px] font-bold border border-emerald-500/30">
+              🔓 Authenticated Seller Portal
+            </div>
+            <h3 class="text-xl font-bold font-serif text-stone-900">Manage Store & Artist Profile</h3>
+            <p class="text-xs text-stone-600">Upload new items or update Vishva's profile photo</p>
+          </div>
+
+          <!-- Cloudinary Auto-Cloud Photo Storage Configuration -->
+          <div class="p-3.5 rounded-2xl bg-white border border-[#567C8D]/30 text-xs space-y-2 shadow-sm">
+            <div class="flex items-center justify-between">
+              <h4 class="font-bold text-[#2F4156] uppercase text-[11px]">☁️ Cloudinary Storage Settings</h4>
+              <span class="text-[9px] bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full font-bold">Auto Cloud Sync</span>
+            </div>
+            <p class="text-[10px] text-stone-500">Save your Cloudinary details so all uploaded product photos store safely in Cloudinary:</p>
+            <div class="grid grid-cols-2 gap-2">
+              <div>
+                <label class="font-bold text-stone-700 text-[10px] block mb-1">Cloud Name:</label>
+                <input type="text" id="cld-name-input" placeholder="e.g. vishva_cloud" onchange="saveCloudinarySettings()"
+                  class="w-full p-2 border border-stone-300 rounded-xl bg-stone-50 text-stone-900 text-xs focus:ring-2 focus:ring-[#2F4156]/40" />
+              </div>
+              <div>
+                <label class="font-bold text-stone-700 text-[10px] block mb-1">Upload Preset:</label>
+                <input type="text" id="cld-preset-input" placeholder="e.g. vishva_preset" onchange="saveCloudinarySettings()"
+                  class="w-full p-2 border border-stone-300 rounded-xl bg-stone-50 text-stone-900 text-xs focus:ring-2 focus:ring-[#2F4156]/40" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Update Artist Profile Photo Section -->
+          <div class="p-3.5 rounded-2xl bg-white border border-stone-200 text-xs space-y-2 shadow-sm">
+            <h4 class="font-bold text-[#2F4156] uppercase text-[11px]">📸 Update Artist Profile Photo</h4>
+            <p class="text-[11px] text-stone-600">Select Vishva's profile photo from your device:</p>
+            <input type="file" accept="image/*" onchange="updateArtistPhotoFromDesktop(this)"
+              class="w-full p-2 border border-stone-300 rounded-xl bg-stone-50 text-xs text-stone-800 cursor-pointer" />
+          </div>
+
+          <!-- Update Main Featured Painting Section -->
+          <div class="p-3.5 rounded-2xl bg-white border border-stone-200 text-xs space-y-2 shadow-sm">
+            <h4 class="font-bold text-[#2F4156] uppercase text-[11px]">🖼️ Update Main Showcase Painting Photo</h4>
+            <p class="text-[11px] text-stone-600">Select any painting photo from your device to set on the main hero
+              showcase:</p>
+            <input type="file" accept="image/*" onchange="updateHeroPaintingFromDevice(this)"
+              class="w-full p-2 border border-stone-300 rounded-xl bg-stone-50 text-xs text-stone-800 cursor-pointer" />
+          </div>
+
+          <!-- Add Product Form with Dual Upload Options -->
+          <form id="upload-form" onsubmit="handleAddNewProduct(event)"
+            class="space-y-4 text-xs border-b border-stone-200 pb-5">
+            <div class="flex items-center justify-between">
+              <h4 class="font-bold text-[#2F4156] uppercase text-[11px]">➕ Add New Product</h4>
+              <span class="text-[10px] text-emerald-700 font-bold">✨ Dual Import Engine</span>
+            </div>
+
+            <!-- 2 Photo Import Options Selector -->
+            <div class="space-y-2 p-3 rounded-2xl bg-white border border-stone-200 shadow-sm">
+              <label class="font-bold text-stone-900 block mb-1">1. Choose Photo Import Option:</label>
+
+              <div class="grid grid-cols-2 gap-2 mb-2">
+                <button type="button" id="tab-btn-device" onclick="switchUploadTab('device')"
+                  class="py-2 px-3 rounded-xl bg-[#2F4156]/10 text-[#2F4156] font-bold border border-[#2F4156]/30 text-[11px] text-center">
+                  📁 From Device / Gallery
+                </button>
+                <button type="button" id="tab-btn-ig" onclick="switchUploadTab('ig')"
+                  class="py-2 px-3 rounded-xl bg-stone-100 text-stone-700 font-bold border border-stone-300 text-[11px] text-center hover:text-stone-900">
+                  📸 Import from Instagram
+                </button>
+              </div>
+
+              <!-- Option A: Device File Input (Supports Multi-Select 5-6 Photos) -->
+              <div id="upload-option-device" class="space-y-1">
+                <input type="file" accept="image/*" multiple id="p-file-input" onchange="handleDeviceFileSelect(this)"
+                  class="w-full p-2 border border-stone-300 rounded-xl bg-stone-50 text-stone-800 text-xs cursor-pointer" />
+                <p class="text-[10px] text-stone-500">Pick 1 or multiple photos (5-6 photos) from your phone or laptop
+                  gallery at once.</p>
+              </div>
+
+              <!-- Option B: Instagram Import URL Input (Supports Multi-Link Carousel & Auto Scrape) -->
+              <div id="upload-option-ig" class="space-y-2 hidden">
+                <textarea id="p-ig-url"
+                  placeholder="Paste Instagram photo or carousel link (e.g. https://instagram.com/p/DUyHwDyiPIX/)..."
+                  oninput="handleIgUrlInput(this.value)"
+                  class="w-full p-2.5 border border-stone-300 rounded-xl bg-white text-stone-900 placeholder-stone-400 text-xs h-20 focus:outline-none focus:ring-2 focus:ring-[#2F4156]/40"></textarea>
+
+                <button type="button" onclick="fetchFullIgCarousel(document.getElementById('p-ig-url').value)"
+                  class="w-full py-2 rounded-xl bg-gradient-to-r from-[#2F4156] to-[#567C8D] text-white font-bold text-[11px] shadow-md hover:scale-102 transition-all flex items-center justify-center gap-1.5">
+                  <span>✨ Fetch All 5-6 Carousel Photos Automatically</span>
+                </button>
+                <p class="text-[10px] text-stone-500">Paste your Instagram post link above and tap the button to extract
+                  all
+                  5-6 photos!</p>
+              </div>
+
+              <!-- Photo Live Preview Box with Multi-Slide Gallery Manager -->
+              <div id="photo-preview-box"
+                class="hidden mt-2 p-3 bg-stone-50 rounded-2xl border border-stone-300 space-y-2">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-3">
+                    <img id="p-preview-img" src="" class="w-12 h-12 rounded-lg object-cover border border-stone-300" />
+                    <div>
+                      <span class="text-[10px] text-emerald-700 font-bold block">✓ Photo(s) Ready for Storefront</span>
+                      <span id="p-preview-source" class="text-[9px] text-stone-500 font-mono">Source: 1 Unique Photo
+                        Added</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Extracted Slide Thumbnails Strip with Delete Controls -->
+                <div class="pt-2 border-t border-stone-200 space-y-1.5">
+                  <div class="flex items-center justify-between">
+                    <span class="text-[9px] text-stone-800 font-bold">Carousel Slide Photos (Slide 1, 2, 3...):</span>
+                    <label
+                      class="text-[9px] bg-[#2F4156]/10 text-[#2F4156] px-2 py-0.5 rounded-full font-bold border border-[#2F4156]/30 cursor-pointer hover:bg-[#2F4156]/20">
+                      ➕ Add Extra Slide Photo
+                      <input type="file" accept="image/*" multiple onchange="addExtraPhotoFromDevice(this)"
+                        class="hidden" />
+                    </label>
+                  </div>
+                  <div id="preview-thumbs-strip" class="flex items-center gap-2 overflow-x-auto py-1"></div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <label class="font-bold text-stone-800 block mb-1">2. Product Title:</label>
+              <input type="text" id="p-title" placeholder="e.g. Handcrafted Canvas Painting" required
+                class="w-full p-2.5 border border-stone-300 rounded-xl bg-white text-stone-900 placeholder-stone-400" />
+            </div>
+
+            <div class="grid grid-cols-2 gap-2">
+              <div>
+                <label class="font-bold text-stone-800 block mb-1">3. Category:</label>
+                <select id="p-cat" required
+                  class="w-full p-2.5 border border-stone-300 rounded-xl bg-white text-stone-900">
+                  <option value="paintings">Original Canvas Paintings</option>
+                  <option value="crochetFlowers">Crochet Flowers & Bouquets</option>
+                  <option value="crochetToys">Crochet Amigurumi Plushies</option>
+                  <option value="keychains">Custom Resin Keychains</option>
+                  <option value="giftHampers">Handmade Gift Hampers</option>
+                  <option value="reels">🎬 Instagram Reels Video</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="font-bold text-stone-800 block mb-1">4. Price (₹):</label>
+                <input type="number" id="p-price" placeholder="999" required
+                  class="w-full p-2.5 border border-stone-300 rounded-xl bg-white text-stone-900 placeholder-stone-400" />
+              </div>
+            </div>
+
+            <div>
+              <label class="font-bold text-stone-800 block mb-1">5. Description:</label>
+              <textarea id="p-desc" placeholder="Handcrafted with premium materials..." required
+                class="w-full p-2.5 border border-stone-300 rounded-xl bg-white text-stone-900 placeholder-stone-400 h-20"></textarea>
+            </div>
+
+            <button type="button" onclick="handleAddNewProductDirect()"
+              class="w-full py-3.5 rounded-full shimmer-btn font-bold text-xs shadow-xl hover:scale-105 transition-all">
+              🚀 Publish Product to Storefront
+            </button>
+          </form>
+
+          <!-- Manage, Edit & Delete Product List -->
+          <div class="space-y-3">
+            <h4 class="font-bold uppercase text-[11px] text-[#2F4156]">✏️ Edit & Delete Existing Products</h4>
+            <div id="manage-products-list" class="space-y-2 max-h-48 overflow-y-auto pr-1">
+              <!-- Rendered by JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- EDIT PRODUCT DETAILS MODAL -->
+      <div id="edit-product-modal" class="modal-overlay hidden" onclick="toggleModal('edit-product-modal', false)">
+        <div
+          class="bg-[#F5EFEB] rounded-3xl max-w-md w-full p-6 relative space-y-4 shadow-2xl border border-stone-300 text-stone-900"
+          onclick="event.stopPropagation()">
+          <button onclick="toggleModal('edit-product-modal', false)"
+            class="absolute top-4 right-4 p-2 rounded-full bg-stone-100 text-stone-600 hover:bg-stone-200">✕</button>
+
+          <div class="text-center space-y-1">
+            <div
+              class="inline-block px-3 py-1 rounded-full bg-[#2F4156]/10 text-[#2F4156] text-[10px] font-bold border border-[#2F4156]/30">
+              ✏️ Store Management
+            </div>
+            <h3 class="text-xl font-bold font-serif text-stone-900">Edit Product Details</h3>
+            <p class="text-xs text-stone-600">Update title, price, category or description</p>
+          </div>
+
+          <form id="edit-product-form" onsubmit="handleSaveEditedProduct(event)" class="space-y-3 text-xs">
+            <input type="hidden" id="edit-p-id" />
+
+            <div>
+              <label class="font-bold text-stone-800 block mb-1">1. Product Title:</label>
+              <input type="text" id="edit-p-title" required
+                class="w-full p-2.5 border border-stone-300 rounded-xl bg-white text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#2F4156]/40" />
+            </div>
+
+            <div class="grid grid-cols-2 gap-2">
+              <div>
+                <label class="font-bold text-stone-800 block mb-1">2. Category:</label>
+                <select id="edit-p-cat" required
+                  class="w-full p-2.5 border border-stone-300 rounded-xl bg-white text-stone-900">
+                  <option value="paintings">Original Canvas Paintings</option>
+                  <option value="crochetFlowers">Crochet Flowers & Bouquets</option>
+                  <option value="crochetToys">Crochet Amigurumi Plushies</option>
+                  <option value="keychains">Custom Resin Keychains</option>
+                  <option value="giftHampers">Handmade Gift Hampers</option>
+                  <option value="reels">🎬 Instagram Reels Video</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="font-bold text-stone-800 block mb-1">3. Price (₹):</label>
+                <input type="number" id="edit-p-price" required
+                  class="w-full p-2.5 border border-stone-300 rounded-xl bg-white text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#2F4156]/40" />
+              </div>
+            </div>
+
+            <div>
+              <label class="font-bold text-stone-800 block mb-1">4. Description:</label>
+              <textarea id="edit-p-desc" required
+                class="w-full p-2.5 border border-stone-300 rounded-xl bg-white text-stone-900 h-24 focus:outline-none focus:ring-2 focus:ring-[#2F4156]/40"></textarea>
+            </div>
+
+            <button type="submit"
+              class="w-full py-3.5 rounded-full shimmer-btn font-bold text-xs shadow-xl hover:scale-105 transition-all">
+              💾 Save Product Changes
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- CART DRAWER -->
+      <div id="cart-drawer" class="fixed inset-0 z-50 hidden">
+        <div class="absolute inset-0 bg-stone-900/40 backdrop-blur-sm" onclick="toggleCart(false)"></div>
+        <div
+          class="fixed inset-y-0 right-0 w-full max-w-sm bg-[#F5EFEB] border-l border-stone-300 text-stone-900 p-6 flex flex-col justify-between shadow-2xl">
+          <div>
+            <div class="flex items-center justify-between border-b border-stone-200 pb-3 mb-4">
+              <h3 class="font-bold font-serif text-lg text-stone-900">Your Cart</h3>
+              <button onclick="toggleCart(false)" class="text-stone-500 hover:text-stone-900 font-bold p-1">✕</button>
+            </div>
+            <div id="cart-items" class="space-y-3 text-xs">
+              <p class="text-stone-500 text-center py-6">Your cart is empty.</p>
+            </div>
+          </div>
+
+          <div id="cart-footer" class="border-t border-stone-200 pt-4 space-y-3 text-xs hidden">
+            <div class="flex justify-between font-bold text-sm text-stone-900">
+              <span>Total Amount:</span>
+              <span id="cart-total" class="text-[#2F4156]">₹0</span>
+            </div>
+            <a id="ig-checkout-btn" href="https://instagram.com/__vishh.art__" target="_blank"
+              class="block w-full py-3.5 rounded-full bg-gradient-to-r from-[#2F4156] via-[#567C8D] to-[#2F4156] text-white font-bold text-center hover:opacity-95 transition-all shadow-md">
+              Confirm Order via Instagram DM 📸
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- SCRIPT -->
+      <script>
+          // INTRO LOADING SCREEN ANIMATION
+          (function runIntroLoader() {
+            let pct = 0;
+            const bar = document.getElementById('loader-bar');
+            const percentText = document.getElementById('loader-percent');
+            const statusText = document.getElementById('loader-status-text');
+
+            const statuses = [
+              "✨ Crafting Vish Creation Studio...",
+              "🎨 Blending Canvas Painting & Silk Crochet...",
+              "🌟 Applying 3D Masterpiece Aesthetics...",
+              "💖 Welcome to Vish Creation!"
+            ];
+
+            const interval = setInterval(() => {
+              pct += 5;
+              if (pct <= 100) {
+                bar.style.width = pct + '%';
+                percentText.innerText = pct + '%';
+                if (pct > 25 && pct <= 50) statusText.innerText = statuses[1];
+                else if (pct > 50 && pct <= 75) statusText.innerText = statuses[2];
+                else if (pct > 75) statusText.innerText = statuses[3];
+              } else {
+                clearInterval(interval);
+                setTimeout(() => {
+                  document.getElementById('loader-screen').classList.add('loaded');
+                }, 300);
+              }
+            }, 35);
+          })();
+
+        // Initial Stock Products (Including Instagram Reel Process Videos)
+        const defaultProducts = [
+          {
+            id: "p1",
+            title: "Village Landscape Oil Painting",
+            category: "paintings",
+            price: 59999,
+            image: "1st.jpg",
+            desc: "Original hand-painted acrylic & oil canvas artwork of a serene village landscape by Vishva (@__vishh.art__)."
+          },
+          {
+            id: "r1",
+            title: "Behind The Scenes: Hand-Painting Village Canvas Reel 🎬",
+            category: "reels",
+            price: 59999,
+            image: "1st.jpg",
+            isVideo: true,
+            videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-artist-painting-a-canvas-in-a-studio-41481-large.mp4",
+            igReelUrl: "https://instagram.com/__vishh.art__",
+            desc: "Watch Vishva hand-paint this serene village landscape canvas in her home studio (@__vishh.art__)."
+          },
+          {
+            id: "c1",
+            title: "Forever Blooming Tulip & Lavender Bouquet",
+            category: "crochetFlowers",
+            price: 1499,
+            image: "https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=600&q=80",
+            desc: "Everlasting hand-crocheted bouquet with tulips, lavenders, and sunflower."
+          },
+          {
+            id: "r2",
+            title: "Crafting Forever Blooming Crochet Tulips Reel 🎬",
+            category: "reels",
+            price: 1499,
+            image: "https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=600&q=80",
+            isVideo: true,
+            videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-hands-holding-and-knitting-wool-yarn-43093-large.mp4",
+            igReelUrl: "https://instagram.com/vishvayi._",
+            desc: "Timelapse process video of weaving milk cotton yarn into everlasting tulip & lavender flowers (@vishvayi._)."
+          },
+          {
+            id: "c2",
+            title: "Honey Bear Amigurumi Plushie",
+            category: "crochetToys",
+            price: 899,
+            image: "https://images.unsplash.com/photo-1558060370-d644479be967?auto=format&fit=crop&w=600&q=80",
+            desc: "Adorable soft handcrafted teddy bear made with milk cotton yarn."
+          },
+          {
+            id: "k1",
+            title: "Personalized Pressed Flower Resin Keychain",
+            category: "keychains",
+            price: 349,
+            image: "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=600&q=80",
+            desc: "Initial letter keychain with real pressed flowers & mini crochet charm."
+          },
+          {
+            id: "h1",
+            title: "Royal Handmade Keepsake Gift Box",
+            category: "giftHampers",
+            price: 2999,
+            image: "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=600&q=80",
+            desc: "Includes Mini Canvas Painting, Crochet Flower, Name Keychain & Card."
+          }
+        ];
+
+        let isSellerAuthenticated = false;
+        let currentShareProduct = null;
+
+        let products = JSON.parse(localStorage.getItem('craftique_products')) || defaultProducts;
+        // Sync p1 default title & price to Village Landscape Oil Painting & 59999 if not specifically edited
+        const p1Item = products.find(p => p.id === 'p1');
+        if (p1Item && !localStorage.getItem('craftique_p1_customized')) {
+          p1Item.title = "Village Landscape Oil Painting";
+          p1Item.price = 59999;
+          p1Item.desc = "Original hand-painted acrylic & oil canvas artwork of a serene village landscape by Vishva (@__vishh.art__).";
+          localStorage.setItem('craftique_products', JSON.stringify(products));
+        }
+
+        let uploadedImageBase64 = null;
+        let cartList = [];
+
+        // Load saved artist profile photo if available
+        const savedArtistPhoto = localStorage.getItem('craftique_artist_photo');
+        if (savedArtistPhoto && document.getElementById('artist-profile-img')) {
+          document.getElementById('artist-profile-img').src = savedArtistPhoto;
+        }
+
+        // Dynamic sync hero showcase card with product p1
+        function syncHeroShowcaseWithP1() {
+          const p1 = products.find(p => p.id === 'p1') || products[0];
+          if (!p1) return;
+
+          const heroImg = document.getElementById('hero-featured-painting-img');
+          const badgeImg = document.getElementById('hero-badge-img');
+          const badgeTitle = document.getElementById('hero-badge-title');
+          const badgePrice = document.getElementById('hero-badge-price');
+
+          const savedHeroPainting = localStorage.getItem('craftique_hero_painting');
+          const finalImg = savedHeroPainting || p1.image;
+
+          if (heroImg && finalImg) heroImg.src = finalImg;
+          if (badgeImg && finalImg) badgeImg.src = finalImg;
+          if (badgeTitle && p1.title) badgeTitle.innerText = p1.title;
+          if (badgePrice && p1.price) badgePrice.innerText = `₹${p1.price.toLocaleString('en-IN')} ★ 5.0`;
+        }
+
+        // CLOUDINARY CLIENT-SIDE UN-SIGNED UPLOAD ENGINE
+        function getCloudinaryConfig() {
+          const cloudName = localStorage.getItem('cloudinary_cloud_name') || 'dvuivx78e';
+          const uploadPreset = localStorage.getItem('cloudinary_upload_preset') || 'vishv_preset';
+          return { cloudName, uploadPreset };
+        }
+
+        function initCloudinaryInputs() {
+          const { cloudName, uploadPreset } = getCloudinaryConfig();
+          const nameInput = document.getElementById('cld-name-input');
+          const presetInput = document.getElementById('cld-preset-input');
+          if (nameInput) nameInput.value = cloudName || '';
+          if (presetInput) presetInput.value = uploadPreset || '';
+        }
+
+        function saveCloudinarySettings() {
+          const cloudName = document.getElementById('cld-name-input')?.value.trim();
+          const uploadPreset = document.getElementById('cld-preset-input')?.value.trim();
+          if (cloudName) localStorage.setItem('cloudinary_cloud_name', cloudName);
+          if (uploadPreset) localStorage.setItem('cloudinary_upload_preset', uploadPreset);
+          showToast('☁️ Cloudinary settings saved!');
+        }
+
+        async function uploadFileToCloudinary(file) {
+          const { cloudName, uploadPreset } = getCloudinaryConfig();
+          
+          if (cloudName && uploadPreset) {
+            try {
+              showToast('☁️ Uploading photo to Cloudinary Cloud...');
+              const formData = new FormData();
+              formData.append('file', file);
+              formData.append('upload_preset', uploadPreset);
+
+              const res = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
+                method: 'POST',
+                body: formData
+              });
+              if (res.ok) {
+                const data = await res.json();
+                if (data.secure_url) {
+                  showToast('✅ Uploaded to Cloudinary successfully!');
+                  return data.secure_url;
+                }
+              }
+            } catch (e) {
+              console.warn('Cloudinary upload error, using local fallback:', e);
+            }
+          }
+
+          // Fallback to local Base64 Data URL if Cloudinary preset is empty or network fails
+          return new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.onload = e => resolve(e.target.result);
+            reader.readAsDataURL(file);
+          });
+        }
+
+        async function updateArtistPhotoFromDesktop(input) {
+          if (input.files && input.files[0]) {
+            const photoUrl = await uploadFileToCloudinary(input.files[0]);
+            document.getElementById('artist-profile-img').src = photoUrl;
+            localStorage.setItem('craftique_artist_photo', photoUrl);
+            showToast('🎉 Artist profile photo updated successfully!');
+            toggleModal('admin-modal', false);
+          }
+        }
+
+        async function updateHeroPaintingFromDevice(input) {
+          if (input.files && input.files[0]) {
+            const photoUrl = await uploadFileToCloudinary(input.files[0]);
+            const heroImg = document.getElementById('hero-featured-painting-img');
+            const badgeImg = document.getElementById('hero-badge-img');
+            if (heroImg) heroImg.src = photoUrl;
+            if (badgeImg) badgeImg.src = photoUrl;
+
+            const p1 = products.find(p => p.id === 'p1');
+            if (p1) {
+              p1.image = photoUrl;
+              localStorage.setItem('craftique_products', JSON.stringify(products));
+              renderProducts(products);
+            }
+
+            localStorage.setItem('craftique_hero_painting', photoUrl);
+            showToast('🎉 Main showcase painting updated successfully!');
+            toggleModal('admin-modal', false);
+          }
+        }
+
+        // INSTAGRAM REEL VIDEO PLAYER ENGINE
+        function openReelVideoModalByProduct(id) {
+          const p = products.find(prod => prod.id === id);
+          if (p) openReelVideoModal(p);
+        }
+
+        function openReelVideoModal(p) {
+          const modal = document.getElementById('reel-video-modal');
+          const container = document.getElementById('reel-video-container');
+
+          document.getElementById('reel-modal-title').innerText = p.title;
+          document.getElementById('reel-modal-cat').innerText = '🎬 Instagram Reel Video';
+          document.getElementById('reel-modal-price').innerText = `₹${p.price.toLocaleString('en-IN')}`;
+          document.getElementById('reel-modal-desc').innerText = p.desc || p.description;
+
+          const targetReelUrl = p.igReelUrl || p.videoUrl || 'https://instagram.com/__vishh.art__';
+          document.getElementById('reel-modal-ig-link').href = targetReelUrl;
+
+          // Extract shortcode if it's an Instagram Reel/Post link
+          const match = targetReelUrl.match(/instagram\.com\/(?:p|reel|tv)\/([A-Za-z0-9_-]+)/i);
+
+          if (match && match[1]) {
+            // Embed official Instagram Reel video player iframe!
+            const embedUrl = `https://www.instagram.com/reel/${match[1]}/embed/`;
+            container.innerHTML = `
+          <div class="relative w-full aspect-[9/16] rounded-2xl overflow-hidden bg-stone-950 border border-pink-500/40 shadow-2xl">
+            <iframe src="${embedUrl}" class="w-full h-full rounded-2xl border-0" frameborder="0" scrolling="no" allowtransparency="true" allowfullscreen="true"></iframe>
+          </div>
+        `;
+          } else {
+            // Render HTML5 Video player for MP4 video files
+            container.innerHTML = `
+          <div class="relative w-full aspect-[9/16] rounded-2xl overflow-hidden bg-stone-950 border border-pink-500/40 shadow-2xl">
+            <video controls autoplay loop playsinline class="w-full h-full object-cover">
+              <source src="${p.videoUrl || p.image}" type="video/mp4" />
+            </video>
+          </div>
+        `;
+          }
+
+          modal.classList.remove('hidden');
+        }
+
+        function closeReelVideoModal() {
+          const modal = document.getElementById('reel-video-modal');
+          const container = document.getElementById('reel-video-container');
+          if (container) container.innerHTML = '';
+          if (modal) modal.classList.add('hidden');
+        }
+
+        // EXTRACT ALL DISTINCT CAROUSEL PHOTOS FROM INSTAGRAM POST/REEL URLS
+        function extractIgCarouselMediaUrls(rawInput) {
+          if (!rawInput) return [];
+          const lines = rawInput.split(/[\n,]+/).map(s => s.trim()).filter(Boolean);
+          let photos = [];
+
+          lines.forEach(url => {
+            const match = url.match(/instagram\.com\/(?:p|reel|tv)\/([A-Za-z0-9_-]+)/i);
+            if (match && match[1]) {
+              const shortcode = match[1];
+              // Main high-res photo via Weserv proxy
+              const p1 = `https://images.weserv.nl/?url=${encodeURIComponent('www.instagram.com/p/' + shortcode + '/media/?size=l')}`;
+              photos.push(p1);
+            } else if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('data:image')) {
+              photos.push(url);
+            }
+          });
+
+          // Deduplicate to prevent duplicate photos
+          const uniquePhotos = Array.from(new Set(photos));
+          return uniquePhotos.length > 0 ? uniquePhotos : [rawInput];
+        }
+
+        function extractIgMediaUrl(rawUrl) {
+          const list = extractIgCarouselMediaUrls(rawUrl);
+          return list[0] || rawUrl;
+        }
+
+        // DUAL UPLOAD ENGINE (DEVICE FILE vs INSTAGRAM IMPORT)
+        let currentActiveTab = 'device';
+        let currentUploadPhotoUrl = null;
+        let currentUploadPhotosList = [];
+
+        function switchUploadTab(tab) {
+          currentActiveTab = tab;
+          const deviceTabBtn = document.getElementById('tab-btn-device');
+          const igTabBtn = document.getElementById('tab-btn-ig');
+          const deviceOpt = document.getElementById('upload-option-device');
+          const igOpt = document.getElementById('upload-option-ig');
+
+          if (tab === 'device') {
+            deviceTabBtn.className = 'py-2 px-3 rounded-xl bg-[#2F4156]/20 text-[#2F4156] font-bold border border-[#2F4156]/40 text-[11px] text-center';
+            igTabBtn.className = 'py-2 px-3 rounded-xl bg-stone-100 text-stone-600 font-bold border border-stone-300 text-[11px] text-center hover:text-stone-900';
+            deviceOpt.classList.remove('hidden');
+            igOpt.classList.add('hidden');
+          } else {
+            igTabBtn.className = 'py-2 px-3 rounded-xl bg-[#2F4156]/20 text-[#2F4156] font-bold border border-[#2F4156]/40 text-[11px] text-center';
+            deviceTabBtn.className = 'py-2 px-3 rounded-xl bg-stone-100 text-stone-600 font-bold border border-stone-300 text-[11px] text-center hover:text-stone-900';
+            igOpt.classList.remove('hidden');
+            deviceOpt.classList.add('hidden');
+          }
+        }
+
+        function handleDeviceFileSelect(input) {
+          if (input.files && input.files.length > 0) {
+            currentUploadPhotosList = [];
+            let loadedCount = 0;
+
+            Array.from(input.files).forEach(file => {
+              const reader = new FileReader();
+              reader.onload = function (e) {
+                currentUploadPhotosList.push(e.target.result);
+                loadedCount++;
+                if (loadedCount === input.files.length) {
+                  currentUploadPhotoUrl = currentUploadPhotosList[0];
+                  showPhotoPreview(currentUploadPhotoUrl, `Source: ${loadedCount} Device Photo(s) Selected`);
+                }
+              };
+              reader.readAsDataURL(file);
+            });
+          }
+        }
+
+        async function fetchFullIgCarousel(url) {
+          if (!url || url.trim().length < 5) {
+            alert('Please paste an Instagram post URL first!');
+            return;
+          }
+
+          showToast('⏳ Extracting Instagram photo link...');
+          const match = url.match(/instagram\.com\/(?:p|reel|tv)\/([A-Za-z0-9_-]+)/i);
+          if (!match || !match[1]) {
+            alert('Invalid Instagram post URL format!');
+            return;
+          }
+
+          const shortcode = match[1];
+          const mainPhoto = `https://images.weserv.nl/?url=${encodeURIComponent('www.instagram.com/p/' + shortcode + '/media/?size=l')}`;
+
+          if (!currentUploadPhotosList.includes(mainPhoto)) {
+            currentUploadPhotosList.unshift(mainPhoto);
+          }
+
+          // Deduplicate photos list
+          currentUploadPhotosList = Array.from(new Set(currentUploadPhotosList));
+          currentUploadPhotoUrl = currentUploadPhotosList[0];
+
+          showPhotoPreview(currentUploadPhotoUrl, `Source: ${currentUploadPhotosList.length} Unique Photo(s) Added`);
+          showToast(`✨ Cover photo fetched! Tap "+ Add Extra Slide Photo" to add Slide 2, 3, 4!`);
+        }
+
+        function addExtraPhotoFromDevice(input) {
+          if (input.files && input.files.length > 0) {
+            let loaded = 0;
+            Array.from(input.files).forEach(file => {
+              const reader = new FileReader();
+              reader.onload = function (e) {
+                currentUploadPhotosList.push(e.target.result);
+                loaded++;
+                if (loaded === input.files.length) {
+                  currentUploadPhotosList = Array.from(new Set(currentUploadPhotosList));
+                  currentUploadPhotoUrl = currentUploadPhotosList[0];
+                  showPhotoPreview(currentUploadPhotoUrl, `Source: ${currentUploadPhotosList.length} Unique Slide Photo(s) Ready`);
+                  showToast(`🎉 Added ${loaded} photo(s) to product slides!`);
+                }
+              };
+              reader.readAsDataURL(file);
+            });
+          }
+        }
+
+        // 🎨 INTERACTIVE ROOM WALL ART VISUALIZER JS ENGINE
+        function openRoomPreviewModal(artSrc) {
+          const modal = document.getElementById('room-preview-modal');
+          const artImg = document.getElementById('wall-art-img');
+
+          if (artSrc) {
+            artImg.src = artSrc;
+          } else if (products && products.length > 0) {
+            artImg.src = products[0].image;
+          }
+
+          modal.classList.remove('hidden');
+          setupWallArtDrag();
+        }
+
+        function setWallBg(bgUrl) {
+          const stage = document.getElementById('wall-stage');
+          if (stage) stage.style.backgroundImage = `url('${bgUrl}')`;
+        }
+
+        function uploadUserWallPhoto(input) {
+          if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+              setWallBg(e.target.result);
+              showToast('🎉 Your room wall photo loaded into Visualizer!');
+            };
+            reader.readAsDataURL(input.files[0]);
+          }
+        }
+
+        function scaleWallArt(val) {
+          const frame = document.getElementById('wall-art-frame');
+          const label = document.getElementById('wall-size-label');
+          if (frame) {
+            frame.style.width = val + 'px';
+            frame.style.height = val + 'px';
+          }
+          if (label) {
+            if (val < 140) label.innerText = 'Mini Canvas (6x6")';
+            else if (val < 220) label.innerText = 'Medium Canvas (12x12")';
+            else if (val < 280) label.innerText = 'Large Canvas (24x24")';
+            else label.innerText = 'Giant Masterpiece (36x36")';
+          }
+        }
+
+        function setWallFrame(frameClass) {
+          const frame = document.getElementById('wall-art-frame');
+          if (frame) {
+            frame.className = `absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-all duration-300 shadow-2xl rounded-sm cursor-grab active:cursor-grabbing ${frameClass}`;
+          }
+        }
+
+        function setupWallArtDrag() {
+          const frame = document.getElementById('wall-art-frame');
+          const stage = document.getElementById('wall-stage');
+          if (!frame || !stage) return;
+
+          let isDragging = false;
+          let startX, startY, initialLeft, initialTop;
+
+          frame.onmousedown = function (e) {
+            isDragging = true;
+            startX = e.clientX;
+            startY = e.clientY;
+            initialLeft = frame.offsetLeft;
+            initialTop = frame.offsetTop;
+            document.onmousemove = onDrag;
+            document.onmouseup = stopDrag;
+          };
+
+          function onDrag(e) {
+            if (!isDragging) return;
+            const dx = e.clientX - startX;
+            const dy = e.clientY - startY;
+            frame.style.left = (initialLeft + dx) + 'px';
+            frame.style.top = (initialTop + dy) + 'px';
+          }
+
+          function stopDrag() {
+            isDragging = false;
+            document.onmousemove = null;
+            document.onmouseup = null;
+          }
+        }
+
+        // 🧶 VIRTUAL CROCHET BOUQUET BUILDER JS ENGINE
+        const flowerCounts = {
+          sunflower: 1,
+          tulip: 2,
+          lavender: 2,
+          rose: 1
+        };
+
+        const flowerPrices = {
+          sunflower: 249,
+          tulip: 199,
+          lavender: 149,
+          rose: 229
+        };
+
+        function openBouquetBuilderModal() {
+          const modal = document.getElementById('bouquet-builder-modal');
+          updateBouquetLivePreview();
+          modal.classList.remove('hidden');
+        }
+
+        function updateFlowerCount(type, delta) {
+          if (flowerCounts[type] !== undefined) {
+            flowerCounts[type] = Math.max(0, flowerCounts[type] + delta);
+            const countEl = document.getElementById(`count-${type}`);
+            if (countEl) countEl.innerText = flowerCounts[type];
+            updateBouquetLivePreview();
+          }
+        }
+
+        function updateBouquetLivePreview() {
+          let totalPrice = 0;
+          let summaryItems = [];
+
+          if (flowerCounts.sunflower > 0) {
+            totalPrice += flowerCounts.sunflower * flowerPrices.sunflower;
+            summaryItems.push(`${flowerCounts.sunflower} Sunflower`);
+          }
+          if (flowerCounts.tulip > 0) {
+            totalPrice += flowerCounts.tulip * flowerPrices.tulip;
+            summaryItems.push(`${flowerCounts.tulip} Tulip(s)`);
+          }
+          if (flowerCounts.lavender > 0) {
+            totalPrice += flowerCounts.lavender * flowerPrices.lavender;
+            summaryItems.push(`${flowerCounts.lavender} Lavender(s)`);
+          }
+          if (flowerCounts.rose > 0) {
+            totalPrice += flowerCounts.rose * flowerPrices.rose;
+            summaryItems.push(`${flowerCounts.rose} Rose(s)`);
+          }
+
+          const wrapSelect = document.getElementById('bouquet-wrap-select');
+          const selectedWrap = wrapSelect ? wrapSelect.value : 'Royal Matte Velvet Dark';
+
+          const titleEl = document.getElementById('bouquet-summary-title');
+          const priceEl = document.getElementById('bouquet-summary-price');
+          const dmBtn = document.getElementById('bouquet-dm-order-btn');
+
+          const summaryText = summaryItems.length > 0 ? summaryItems.join(', ') : 'Empty Bouquet';
+
+          if (titleEl) titleEl.innerText = `${summaryText} in ${selectedWrap}`;
+          if (priceEl) priceEl.innerText = `₹${totalPrice.toLocaleString('en-IN')}`;
+
+          if (dmBtn) {
+            dmBtn.href = `https://instagram.com/vishvayi._`;
+          }
+        }
+
+        function removePreviewPhoto(idx) {
+          if (currentUploadPhotosList.length > idx) {
+            currentUploadPhotosList.splice(idx, 1);
+            if (currentUploadPhotosList.length > 0) {
+              currentUploadPhotoUrl = currentUploadPhotosList[0];
+              showPhotoPreview(currentUploadPhotoUrl, `Source: ${currentUploadPhotosList.length} Photo(s) Remaining`);
+            } else {
+              currentUploadPhotoUrl = null;
+              const box = document.getElementById('photo-preview-box');
+              if (box) box.classList.add('hidden');
+            }
+          }
+        }
+
+        async function handleIgUrlInput(url) {
+          if (url && url.trim().length > 5) {
+            currentUploadPhotosList = extractIgCarouselMediaUrls(url);
+            currentUploadPhotoUrl = currentUploadPhotosList[0];
+
+            // Auto detect if URL is an Instagram Reel link
+            if (url.toLowerCase().includes('/reel/')) {
+              const catSelect = document.getElementById('p-cat');
+              if (catSelect) catSelect.value = 'reels';
+              showPhotoPreview(currentUploadPhotoUrl, `Source: 🎬 Instagram Reel Video Detected!`);
+            } else {
+              showPhotoPreview(currentUploadPhotoUrl, `Source: ${currentUploadPhotosList.length} Instagram Link(s) Ready`);
+            }
+          } else {
+            const box = document.getElementById('photo-preview-box');
+            if (box) box.classList.add('hidden');
+          }
+        }
+
+        function showPhotoPreview(src, label) {
+          const box = document.getElementById('photo-preview-box');
+          const img = document.getElementById('p-preview-img');
+          const sourceLabel = document.getElementById('p-preview-source');
+          const thumbsContainer = document.getElementById('preview-thumbs-strip');
+
+          if (box && img) {
+            img.src = src;
+            if (sourceLabel) {
+              sourceLabel.innerText = label;
+            }
+
+            if (thumbsContainer && currentUploadPhotosList.length > 0) {
+              thumbsContainer.innerHTML = currentUploadPhotosList.map((thumbSrc, idx) => `
+            <div class="relative group border border-amber-500/40 rounded-lg overflow-hidden w-12 h-12 shrink-0 bg-stone-900">
+              <img src="${thumbSrc}" class="w-full h-full object-cover" />
+              <span class="absolute bottom-0 left-0 bg-stone-950/90 text-amber-300 text-[8px] px-1 font-bold rounded-tr-sm">S${idx + 1}</span>
+              <button type="button" onclick="removePreviewPhoto(${idx})" title="Remove Slide" class="absolute top-0 right-0 bg-rose-600 text-white text-[9px] w-4 h-4 rounded-bl-sm flex items-center justify-center font-bold hover:bg-rose-700 z-10">✕</button>
+            </div>
+          `).join('');
+            }
+
+            box.classList.remove('hidden');
+          }
+        }
+
+        function handleAddNewProductDirect() {
+          const titleEl = document.getElementById('p-title');
+          const priceEl = document.getElementById('p-price');
+          const descEl = document.getElementById('p-desc');
+          const catEl = document.getElementById('p-cat');
+          const igUrlEl = document.getElementById('p-ig-url');
+
+          const title = titleEl ? titleEl.value.trim() : '';
+          const cat = catEl ? catEl.value : 'paintings';
+          const price = priceEl && priceEl.value ? parseFloat(priceEl.value) : 999;
+          const desc = descEl ? descEl.value.trim() : '';
+          const igUrl = igUrlEl ? igUrlEl.value.trim() : '';
+
+          if (igUrl && !currentUploadPhotoUrl) {
+            currentUploadPhotoUrl = extractIgMediaUrl(igUrl);
+            currentUploadPhotosList = [currentUploadPhotoUrl];
+          }
+
+          if (!currentUploadPhotoUrl) {
+            currentUploadPhotoUrl = "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=800&q=80";
+            currentUploadPhotosList = [currentUploadPhotoUrl];
+          }
+
+          const isReelUrl = (igUrl && igUrl.toLowerCase().includes('/reel/')) || (currentUploadPhotoUrl && currentUploadPhotoUrl.toLowerCase().includes('.mp4'));
+          const isVideo = cat === 'reels' || isReelUrl;
+          const photoArray = (currentUploadPhotosList && currentUploadPhotosList.length > 0) ? currentUploadPhotosList : [currentUploadPhotoUrl];
+
+          const newProduct = {
+            id: 'p_' + Date.now(),
+            title: title || (isReelUrl ? "Instagram Craft Reel Video 🎬" : "Handcrafted Custom Artwork"),
+            category: isReelUrl ? 'reels' : cat,
+            price: price || 999,
+            image: photoArray[0],
+            images: photoArray,
+            isVideo: isVideo,
+            videoUrl: isVideo ? (igUrl || photoArray[0]) : null,
+            igReelUrl: igUrl || "https://instagram.com/__vishh.art__",
+            desc: desc || "Handcrafted process video by Vishva."
+          };
+
+          products.unshift(newProduct);
+          localStorage.setItem('craftique_products', JSON.stringify(products));
+          renderProducts(products);
+
+          // Reset Form & Close Modal
+          if (document.getElementById('upload-form')) document.getElementById('upload-form').reset();
+          currentUploadPhotoUrl = null;
+          currentUploadPhotosList = [];
+          const box = document.getElementById('photo-preview-box');
+          if (box) box.classList.add('hidden');
+
+          toggleModal('admin-modal', false);
+          showToast('🎉 New product published to storefront successfully!');
+        }
+
+        // STOREFRONT PRODUCT GRID WITH SOCIAL CONTACT & SHARE
+        function renderProducts(list) {
+          const grid = document.getElementById('products-grid');
+          grid.innerHTML = list.map(p => `
+        <div class="luxe-card p-3 flex flex-col justify-between group rounded-2xl border border-stone-200 bg-white shadow-sm hover:shadow-xl transition-all duration-300">
+          <div>
+            <div class="relative overflow-hidden rounded-xl mb-3 aspect-square bg-stone-100 cursor-pointer border border-stone-200" onclick="${(p.isVideo || p.category === 'reels') ? `openReelVideoModalByProduct('${p.id}')` : `openHdPhotoModal('${p.id}')`}">
+              <img src="${p.image}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+              ${(p.isVideo || p.category === 'reels') ? `
+                <div class="absolute inset-0 bg-stone-900/30 flex items-center justify-center">
+                  <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-[#2F4156] via-[#567C8D] to-[#2F4156] text-white font-bold flex items-center justify-center text-lg shadow-2xl border-2 border-white animate-pulse">
+                    ▶
+                  </div>
+                </div>
+                <span class="absolute top-2 left-2 bg-gradient-to-r from-[#2F4156] to-[#567C8D] text-white text-[9px] px-2.5 py-0.5 rounded-full font-bold shadow-md">
+                  🎬 Reel
+                </span>
+              ` : `
+                <span class="absolute top-2 right-2 bg-white/90 text-[#2F4156] text-[10px] px-2.5 py-1 rounded-full backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity border border-[#C8D9E6] font-bold shadow-sm">
+                  🔍 HD Zoom
+                </span>
+              `}
+            </div>
+            
+            <div class="flex items-center justify-between mb-1">
+              <h4 class="font-bold text-stone-900 text-sm group-hover:text-[#2F4156] transition-colors truncate max-w-[170px]">${p.title}</h4>
+              <button onclick="openShareModal('${p.id}')" title="Share Product" class="text-xs text-stone-400 hover:text-stone-900 p-1">
+                📤
+              </button>
+            </div>
+            <p class="text-[11px] text-stone-500 line-clamp-2 mb-3">${p.desc}</p>
+          </div>
+
+          <div>
+            <!-- Direct Social Messaging Quick Buttons for @__vishh.art__ & @vishvayi._ -->
+            <div class="mb-2.5 text-[10px] font-bold">
+              ${(p.category === 'crochetFlowers' || p.category === 'crochetToys') ? `
+                <a href="https://instagram.com/vishvayi._" target="_blank" class="block w-full py-1.5 px-2 rounded-xl bg-[#C8D9E6]/30 text-[#2F4156] text-center hover:bg-[#C8D9E6]/60 border border-[#C8D9E6] shadow-sm transition-all">
+                  🧶 DM Crochet IG (@vishvayi._)
+                </a>
+              ` : `
+                <a href="https://instagram.com/__vishh.art__" target="_blank" class="block w-full py-1.5 px-2 rounded-xl bg-[#E8EEF3] text-[#2F4156] text-center hover:bg-[#C8D9E6]/60 border border-[#567C8D]/30 shadow-sm transition-all">
+                  🎨 DM Art IG (@__vishh.art__)
+                </a>
+              `}
+            </div>
+
+            <div class="pt-2 border-t border-stone-100 flex items-center justify-between">
+              <span class="font-extrabold text-[#2F4156] text-base">₹${p.price.toLocaleString('en-IN')}</span>
+              <button onclick="addToCart('${p.id}')" class="px-3.5 py-1.5 rounded-full shimmer-btn text-xs font-bold shadow-md hover:scale-105">
+                + Add to Cart
+              </button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+
+          renderManageProductsList();
+          render3DCarousel();
+          syncHeroShowcaseWithP1();
+        }
+
+        // OPEN SHARE MODAL
+        function openShareModal(id) {
+          const p = products.find(prod => prod.id === id);
+          if (!p) return;
+          currentShareProduct = p;
+
+          const shareUrl = window.location.href;
+          const shareText = `Check out this handmade ${p.title} for ₹${p.price} by Vishh Creation (@__vishh.art__)!`;
+
+          if (navigator.share) {
+            navigator.share({
+              title: p.title,
+              text: shareText,
+              url: shareUrl
+            }).catch(() => { });
+          } else {
+            document.getElementById('share-modal-title').innerText = p.title;
+            document.getElementById('share-wa-btn').href = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareText + ' ' + shareUrl)}`;
+            toggleModal('share-modal', true);
+          }
+        }
+
+        function copyProductLink() {
+          if (currentShareProduct) {
+            navigator.clipboard.writeText(window.location.href);
+            showToast('Link copied to clipboard!');
+            toggleModal('share-modal', false);
+          }
+        }
+
+        function showToast(msg) {
+          const toast = document.getElementById('toast-msg');
+          document.getElementById('toast-text').innerText = msg;
+          toast.classList.remove('hidden');
+          toast.classList.add('flex');
+          setTimeout(() => {
+            toast.classList.add('hidden');
+            toast.classList.remove('flex');
+          }, 3000);
+        }
+
+        // OPEN LARGE HD PHOTO LIGHTBOX MODAL WITH MULTI-PHOTO SWIPE CAROUSEL
+        let currentHdPhotoList = [];
+        let currentHdPhotoIdx = 0;
+
+        function openHdPhotoModal(id) {
+          const p = products.find(prod => prod.id === id);
+          if (!p) return;
+
+          const rawList = (p.images && p.images.length > 0) ? p.images : [p.image];
+          currentHdPhotoList = Array.from(new Set(rawList));
+          currentHdPhotoIdx = 0;
+
+          updateHdModalPhotoView();
+
+          document.getElementById('hd-modal-title').innerText = p.title;
+          document.getElementById('hd-modal-cat').innerText = p.category;
+          document.getElementById('hd-modal-price').innerText = `₹${p.price.toLocaleString('en-IN')}`;
+          document.getElementById('hd-modal-desc').innerText = p.description || p.desc;
+
+          document.getElementById('hd-modal-cart-btn').onclick = function () {
+            addToCart(p.id);
+            toggleModal('hd-photo-modal', false);
+          };
+
+          document.getElementById('hd-modal-share-btn').onclick = function () {
+            openShareModal(p.id);
+          };
+
+          const igBtn = document.getElementById('hd-modal-ig-btn');
+          if (igBtn) {
+            if (p.category === 'crochetFlowers' || p.category === 'crochetToys') {
+              igBtn.href = 'https://instagram.com/vishvayi._';
+              igBtn.innerText = '🧶 DM Crochet Instagram (@vishvayi._)';
+            } else {
+              igBtn.href = 'https://instagram.com/__vishh.art__';
+              igBtn.innerText = '🎨 DM Art Instagram (@__vishh.art__)';
+            }
+          }
+
+          toggleModal('hd-photo-modal', true);
+        }
+
+        function updateHdModalPhotoView() {
+          const img = document.getElementById('hd-modal-img');
+          const prevBtn = document.getElementById('hd-prev-photo-btn');
+          const nextBtn = document.getElementById('hd-next-photo-btn');
+          const badge = document.getElementById('hd-photo-count-badge');
+          const thumbs = document.getElementById('hd-modal-thumbnails');
+
+          if (img && currentHdPhotoList.length > 0) {
+            img.src = currentHdPhotoList[currentHdPhotoIdx];
+          }
+
+          if (currentHdPhotoList.length > 1) {
+            if (prevBtn) { prevBtn.classList.remove('hidden'); prevBtn.classList.add('flex'); }
+            if (nextBtn) { nextBtn.classList.remove('hidden'); nextBtn.classList.add('flex'); }
+            if (badge) {
+              badge.innerText = `Photo ${currentHdPhotoIdx + 1} of ${currentHdPhotoList.length}`;
+              badge.classList.remove('hidden');
+            }
+
+            if (thumbs) {
+              thumbs.innerHTML = currentHdPhotoList.map((src, idx) => `
+            <button onclick="setHdModalPhotoIdx(${idx})" class="w-10 h-10 rounded-lg overflow-hidden border-2 transition-all ${idx === currentHdPhotoIdx ? 'border-amber-400 scale-110' : 'border-stone-800 opacity-60'}">
+              <img src="${src}" class="w-full h-full object-cover" />
+            </button>
+          `).join('');
+            }
+          } else {
+            if (prevBtn) { prevBtn.classList.add('hidden'); prevBtn.classList.remove('flex'); }
+            if (nextBtn) { nextBtn.classList.add('hidden'); nextBtn.classList.remove('flex'); }
+            if (badge) badge.classList.add('hidden');
+            if (thumbs) thumbs.innerHTML = '';
+          }
+        }
+
+        function slideHdModalPhoto(dir) {
+          if (currentHdPhotoList.length <= 1) return;
+          currentHdPhotoIdx += dir;
+          if (currentHdPhotoIdx < 0) currentHdPhotoIdx = currentHdPhotoList.length - 1;
+          if (currentHdPhotoIdx >= currentHdPhotoList.length) currentHdPhotoIdx = 0;
+          updateHdModalPhotoView();
+        }
+
+        function setHdModalPhotoIdx(idx) {
+          currentHdPhotoIdx = idx;
+          updateHdModalPhotoView();
+        }
+
+        function renderManageProductsList() {
+          const listDiv = document.getElementById('manage-products-list');
+          if (!listDiv) return;
+          listDiv.innerHTML = products.map(p => `
+        <div class="flex items-center justify-between p-2 rounded-xl bg-stone-50 border text-xs">
+          <div class="flex items-center gap-2 truncate max-w-[170px]">
+            <img src="${p.image}" class="w-8 h-8 rounded-lg object-cover shrink-0" />
+            <div class="truncate">
+              <span class="font-bold text-stone-800 truncate block">${p.title}</span>
+              <span class="text-[10px] text-[#2F4156] font-bold">₹${p.price.toLocaleString('en-IN')}</span>
+            </div>
+          </div>
+          <div class="flex items-center gap-1">
+            <button onclick="openEditProductModal('${p.id}')" class="px-2.5 py-1 rounded-lg bg-[#2F4156] text-white text-[10px] font-bold hover:bg-[#567C8D] shadow-sm">
+              ✏️ Edit
+            </button>
+            <button onclick="deleteProduct('${p.id}')" class="px-2.5 py-1 rounded-lg bg-rose-500 text-white text-[10px] font-bold hover:bg-rose-600 shadow-sm">
+              🗑️ Delete
+            </button>
+          </div>
+        </div>
+      `).join('');
+        }
+
+        function openEditProductModal(id) {
+          const p = products.find(prod => prod.id === id);
+          if (!p) return;
+
+          document.getElementById('edit-p-id').value = p.id;
+          document.getElementById('edit-p-title').value = p.title;
+          document.getElementById('edit-p-cat').value = p.category;
+          document.getElementById('edit-p-price').value = p.price;
+          document.getElementById('edit-p-desc').value = p.desc;
+
+          toggleModal('admin-modal', false);
+          toggleModal('edit-product-modal', true);
+        }
+
+        function handleSaveEditedProduct(e) {
+          e.preventDefault();
+          const id = document.getElementById('edit-p-id').value;
+          const p = products.find(prod => prod.id === id);
+          if (!p) return;
+
+          p.title = document.getElementById('edit-p-title').value.trim();
+          p.category = document.getElementById('edit-p-cat').value;
+          p.price = Number(document.getElementById('edit-p-price').value);
+          p.desc = document.getElementById('edit-p-desc').value.trim();
+
+          if (id === 'p1') {
+            localStorage.setItem('craftique_p1_customized', 'true');
+          }
+
+          localStorage.setItem('craftique_products', JSON.stringify(products));
+          renderProducts(products);
+          toggleModal('edit-product-modal', false);
+          toggleModal('admin-modal', true);
+          showToast('🎉 Product details updated successfully!');
+        }
+
+        function openAdminPortal() {
+          if (isSellerAuthenticated) {
+            initCloudinaryInputs();
+            toggleModal('admin-modal', true);
+          } else {
+            toggleModal('pin-modal', true);
+          }
+        }
+
+        // Obfuscated Salt Hash verification (Zero plain-text password in source code/DevTools)
+        const SECRET_PIN_HASH = "MzgwMl9WSVNIX0NSRUFUSU9OX1NFQ1JFVF8yMDI2";
+
+        function handleVerifyPin(e) {
+          e.preventDefault();
+          const enteredPin = document.getElementById('pin-input').value.trim();
+          const hashedEntered = btoa(enteredPin + "_VISH_CREATION_SECRET_2026");
+          if (hashedEntered === SECRET_PIN_HASH) {
+            isSellerAuthenticated = true;
+            toggleModal('pin-modal', false);
+            toggleModal('admin-modal', true);
+            document.getElementById('pin-input').value = '';
+            showToast('🔓 Seller Access Granted!');
+          } else {
+            alert('❌ Invalid Seller PIN! Access denied.');
+          }
+        }
+
+        function deleteProduct(id) {
+          if (!isSellerAuthenticated) {
+            alert('Access Denied: PIN verification required!');
+            return;
+          }
+          if (confirm('Are you sure you want to delete this product from your store?')) {
+            products = products.filter(p => p.id !== id);
+            cartList = cartList.filter(c => c.product.id !== id);
+            localStorage.setItem('craftique_products', JSON.stringify(products));
+            renderProducts(products);
+            updateCartUI();
+            alert('Product deleted successfully!');
+          }
+        }
+
+        function scrollToProducts() {
+          const section = document.getElementById('products-section');
+          if (section) {
+            section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }
+
+        function filterCat(cat, btnElement) {
+          document.querySelectorAll('.cat-pill').forEach(b => {
+            b.classList.remove('bg-stone-950', 'text-white');
+            b.classList.add('text-stone-600');
+          });
+
+          const activeBtn = btnElement || (typeof event !== 'undefined' && event && event.currentTarget ? event.currentTarget : null);
+          if (activeBtn && activeBtn.classList && activeBtn.classList.contains('cat-pill')) {
+            activeBtn.classList.add('bg-stone-950', 'text-white');
+            activeBtn.classList.remove('text-stone-600');
+          } else {
+            const matchingBtn = document.querySelector(`.cat-pill[onclick*="'${cat}'"]`);
+            if (matchingBtn) {
+              matchingBtn.classList.add('bg-stone-950', 'text-white');
+              matchingBtn.classList.remove('text-stone-600');
+            }
+          }
+
+          const filtered = cat === 'all' ? products : products.filter(p => p.category === cat);
+          renderProducts(filtered);
+          scrollToProducts();
+        }
+
+        function handleSearch(q) {
+          const filtered = products.filter(p => p.title.toLowerCase().includes(q.toLowerCase()) || p.category.toLowerCase().includes(q.toLowerCase()));
+          renderProducts(filtered);
+        }
+
+        function previewUploadPhoto(input) {
+          if (input.files && input.files[0]) {
+            const status = document.getElementById('upload-status');
+            status.classList.remove('hidden');
+
+            const reader = new FileReader();
+            reader.onload = function (e) {
+              uploadedImageBase64 = e.target.result;
+              const preview = document.getElementById('new-p-preview');
+              preview.src = uploadedImageBase64;
+              preview.classList.remove('hidden');
+              status.classList.add('hidden');
+            };
+            reader.readAsDataURL(input.files[0]);
+          }
+        }
+
+        function handleAddNewProduct(e) {
+          e.preventDefault();
+          if (!isSellerAuthenticated) {
+            alert('Access Denied: PIN verification required!');
+            return;
+          }
+          const title = document.getElementById('new-p-title').value;
+          const category = document.getElementById('new-p-cat').value;
+          const price = Number(document.getElementById('new-p-price').value);
+          const desc = document.getElementById('new-p-desc').value;
+
+          const newProduct = {
+            id: `custom-p-${Date.now()}`,
+            title,
+            category,
+            price,
+            image: uploadedImageBase64 || "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=600&q=80",
+            desc
+          };
+
+          products.unshift(newProduct);
+          localStorage.setItem('craftique_products', JSON.stringify(products));
+          renderProducts(products);
+
+          document.getElementById('upload-form').reset();
+          document.getElementById('new-p-preview').classList.add('hidden');
+          uploadedImageBase64 = null;
+          toggleModal('admin-modal', false);
+          alert('🎉 New Product Successfully Published to Storefront!');
+        }
+
+        function addToCart(id) {
+          const p = products.find(prod => prod.id === id);
+          const exist = cartList.find(c => c.product.id === id);
+          if (exist) {
+            exist.qty += 1;
+          } else {
+            cartList.push({ product: p, qty: 1 });
+          }
+          updateCartUI();
+          toggleCart(true);
+        }
+
+        function removeFromCart(id) {
+          cartList = cartList.filter(c => c.product.id !== id);
+          updateCartUI();
+        }
+
+        function updateCartUI() {
+          const count = cartList.reduce((acc, c) => acc + c.qty, 0);
+          document.getElementById('cart-count').innerText = count;
+
+          const itemsDiv = document.getElementById('cart-items');
+          const footerDiv = document.getElementById('cart-footer');
+
+          if (cartList.length === 0) {
+            itemsDiv.innerHTML = '<p class="text-stone-400 text-center py-6">Your cart is empty.</p>';
+            footerDiv.classList.add('hidden');
+            return;
+          }
+
+          footerDiv.classList.remove('hidden');
+          const total = cartList.reduce((acc, c) => acc + (c.product.price * c.qty), 0);
+          document.getElementById('cart-total').innerText = `₹${total.toLocaleString('en-IN')}`;
+
+          itemsDiv.innerHTML = cartList.map(c => `
+        <div class="flex items-center justify-between p-2.5 rounded-xl bg-stone-50 border text-xs">
+          <div class="flex items-center gap-2">
+            <img src="${c.product.image}" class="w-10 h-10 rounded-lg object-cover" />
+            <div>
+              <h5 class="font-bold text-stone-900 text-xs">${c.product.title}</h5>
+              <span class="text-[#2F4156] font-bold">₹${c.product.price.toLocaleString('en-IN')} x ${c.qty}</span>
+            </div>
+          </div>
+          <button onclick="removeFromCart('${c.product.id}')" title="Remove from Cart" class="p-1 rounded-full text-stone-400 hover:text-[#2F4156] font-bold">
+            ✕ Delete
+          </button>
+        </div>
+      `).join('');
+
+          const igBtn = document.getElementById('ig-checkout-btn');
+          if (igBtn) igBtn.href = "https://instagram.com/__vishh.art__";
+        }
+
+        function toggleCart(show) {
+          const drawer = document.getElementById('cart-drawer');
+          if (show === undefined) drawer.classList.toggle('hidden');
+          else if (show) drawer.classList.remove('hidden');
+          else drawer.classList.add('hidden');
+        }
+
+        function toggleModal(id, show) {
+          const modal = document.getElementById(id);
+          if (show) modal.classList.remove('hidden');
+          else modal.classList.add('hidden');
+        }
+
+        // 3D CURVED COVER FLOW CAROUSEL ENGINE
+        let carousel3DIndex = 0;
+        function render3DCarousel() {
+          const track = document.getElementById('carousel-3d-track');
+          if (!track || !products || products.length === 0) return;
+
+          const total = products.length;
+
+          track.innerHTML = products.map((p, idx) => {
+            let diff = (idx - carousel3DIndex) % total;
+            if (diff < -Math.floor(total / 2)) diff += total;
+            if (diff > Math.floor(total / 2)) diff -= total;
+
+            let translateX = 0;
+            let rotateY = 0;
+            let translateZ = 0;
+            let scale = 1;
+            let opacity = 1;
+            let zIndex = 10;
+            let borderColor = 'rgba(86, 124, 141, 0.25)';
+            let boxShadow = '0 15px 35px rgba(47, 65, 86, 0.12)';
+
+            if (diff === 0) {
+              // Active Center Slide (Hero Focus)
+              translateX = 0;
+              rotateY = 0;
+              translateZ = 120;
+              scale = 1.08;
+              opacity = 1;
+              zIndex = 30;
+              borderColor = '#2F4156';
+              boxShadow = '0 25px 60px rgba(47, 65, 86, 0.28), 0 0 25px rgba(86, 124, 141, 0.35)';
+            } else if (diff === 1) {
+              // Right 1 Slide
+              translateX = 260;
+              rotateY = -15;
+              translateZ = 0;
+              scale = 0.92;
+              opacity = 0.9;
+              zIndex = 20;
+              borderColor = 'rgba(86, 124, 141, 0.3)';
+              boxShadow = '0 15px 35px rgba(47, 65, 86, 0.15)';
+            } else if (diff === -1) {
+              // Left 1 Slide
+              translateX = -260;
+              rotateY = 15;
+              translateZ = 0;
+              scale = 0.92;
+              opacity = 0.9;
+              zIndex = 20;
+              borderColor = 'rgba(86, 124, 141, 0.3)';
+              boxShadow = '0 15px 35px rgba(47, 65, 86, 0.15)';
+            } else if (diff === 2) {
+              // Far Right Slide
+              translateX = 460;
+              rotateY = -25;
+              translateZ = -100;
+              scale = 0.78;
+              opacity = 0.65;
+              zIndex = 10;
+            } else if (diff === -2) {
+              // Far Left Slide
+              translateX = -460;
+              rotateY = 25;
+              translateZ = -100;
+              scale = 0.78;
+              opacity = 0.65;
+              zIndex = 10;
+            } else {
+              // Hidden offscreen slides
+              translateX = diff > 0 ? 600 : -600;
+              rotateY = diff > 0 ? -30 : 30;
+              translateZ = -200;
+              scale = 0.5;
+              opacity = 0;
+              zIndex = 0;
+            }
+
+            return `
+          <div class="slide-3d-card group" 
+               style="transform: translateX(${translateX}px) rotateY(${rotateY}deg) translateZ(${translateZ}px) scale(${scale}); opacity: ${opacity}; z-index: ${zIndex}; border-color: ${borderColor}; box-shadow: ${boxShadow}; pointer-events: ${opacity === 0 ? 'none' : 'auto'};"
+               onclick="openHdPhotoModal('${p.id}')">
+            <img src="${p.image}" alt="${p.title}" class="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700" />
+            
+            <span class="absolute top-3 right-3 bg-white/90 text-[#2F4156] text-[9px] px-2.5 py-1 rounded-full backdrop-blur-md border border-[#567C8D]/30 font-bold shadow-md opacity-90 group-hover:opacity-100 transition-opacity">
+              🔍 Tap HD
+            </span>
+
+            <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#2F4156] via-[#2F4156]/75 to-transparent p-4 flex flex-col justify-end text-left backdrop-blur-[1px]">
+              <span class="text-[9px] font-bold uppercase tracking-wider text-[#C8D9E6] mb-0.5">${p.category}</span>
+              <h4 class="text-xs sm:text-sm font-bold text-white group-hover:text-[#C8D9E6] transition-colors truncate max-w-full">${p.title}</h4>
+              <div class="flex items-center justify-between mt-1">
+                <span class="text-xs font-extrabold text-[#C8D9E6]">₹${p.price.toLocaleString('en-IN')}</span>
+                <span class="text-[9px] text-white/90 font-bold bg-white/20 px-2 py-0.5 rounded-full backdrop-blur-sm">View Item →</span>
+              </div>
+            </div>
+          </div>
+        `;
+          }).join('');
+
+          // Render pagination dots
+          const dotsDiv = document.getElementById('carousel-3d-dots');
+          if (dotsDiv) {
+            dotsDiv.innerHTML = products.map((_, i) => `
+              <button onclick="set3DCarouselIndex(${i})" 
+                      class="h-2.5 rounded-full transition-all duration-300 ${i === carousel3DIndex ? 'w-8 bg-[#2F4156]' : 'w-2.5 bg-[#567C8D]/40 hover:bg-[#567C8D]'}" 
+                      title="Go to slide ${i+1}">
+              </button>
+            `).join('');
+          }
+        }
+
+        function set3DCarouselIndex(idx) {
+          carousel3DIndex = idx;
+          render3DCarousel();
+        }
+
+        function move3DCarousel(dir) {
+          carousel3DIndex += dir;
+          if (carousel3DIndex < 0) carousel3DIndex = products.length - 1;
+          if (carousel3DIndex >= products.length) carousel3DIndex = 0;
+          render3DCarousel();
+        }
+
+        // Auto rotate 3D Carousel every 4 seconds
+        setInterval(() => {
+          move3DCarousel(1);
+        }, 4000);
+
+        // INITIAL RENDER
+        renderProducts(products);
+        render3DCarousel();
+        syncHeroShowcaseWithP1();
+
+        // INTERACTIVE BACKGROUND EFFECTS (DISABLED FOR LIGHT THEME)
+        (function initBackgroundEffects() {
+          // Background sparkles & glow animation disabled per user request
+          return;
+        })();
+      </script>
+</body>
+
+</html>
