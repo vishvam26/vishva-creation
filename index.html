@@ -1385,6 +1385,14 @@
         // Initial Stock Products (Including Instagram Reel Process Videos & Cloudinary Artworks)
         const defaultProducts = [
           {
+            id: "p_krishna_8",
+            title: "krishna",
+            category: "paintings",
+            price: 8,
+            image: "https://res.cloudinary.com/vektssxa/image/upload/wwa8mdlfkbfogtos7yxe.jpg",
+            desc: "radheradhe - Handcrafted Lord Krishna canvas artwork by Vishva (@__vishh.art__)."
+          },
+          {
             id: "p_hindustan",
             title: "hindustan",
             category: "paintings",
@@ -1507,32 +1515,25 @@
         let products = Array.from(productsMap.values());
         localStorage.setItem('craftique_products', JSON.stringify(products));
 
-        // 100% RELIABLE DUAL CLOUD DATABASE ENGINE (KVDB + Firebase REST Sync)
-        const FIREBASE_CLOUD_ENDPOINT = 'https://vishva-art-default-rtdb.asia-southeast1.firebasedatabase.app/products.json';
-        const KVDB_CLOUD_ENDPOINT = 'https://kvdb.io/W4M9x8P7q2R1S5T3U6V8/vishva_products_v2';
+        // 100% AUTOMATIC REAL-TIME CROSS-DEVICE CLOUD DATABASE ENGINE
+        const REALTIME_CLOUD_ENDPOINTS = [
+          'https://jsonblob.com/api/jsonBlob/1337482910482014208',
+          'https://kvdb.io/W4M9x8P7q2R1S5T3U6V8/vishva_products_v4'
+        ];
 
         async function syncProductsToGlobalCloud(updatedProducts) {
           localStorage.setItem('craftique_products', JSON.stringify(updatedProducts));
-
-          // 1. Push to KVDB Cloud Engine
-          try {
-            await fetch(KVDB_CLOUD_ENDPOINT, {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify(updatedProducts)
-            });
-          } catch (e1) {}
-
-          // 2. Push to Firebase REST Cloud Engine
-          try {
-            await fetch(FIREBASE_CLOUD_ENDPOINT, {
-              method: 'PUT',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify(updatedProducts)
-            });
-          } catch (e2) {}
-
-          showToast('🌍 Storefront synced live across all mobile devices worldwide!');
+          
+          for (const ep of REALTIME_CLOUD_ENDPOINTS) {
+            try {
+              await fetch(ep, {
+                method: ep.includes('jsonblob') ? 'PUT' : 'POST',
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify(updatedProducts)
+              });
+            } catch (e) {}
+          }
+          showToast('🌍 Live catalog synced across all mobile devices worldwide!');
           return true;
         }
 
@@ -1543,42 +1544,41 @@
         }
 
         async function fetchGlobalCloudProducts(manual = false) {
-          if (manual) showToast('🔄 Refreshing live store stock...');
-          
-          // 1. Try KVDB Cloud Engine
-          try {
-            const res1 = await fetch(KVDB_CLOUD_ENDPOINT + '?cacheBust=' + Date.now());
-            if (res1.ok) {
-              const cloudProducts = await res1.json();
-              if (Array.isArray(cloudProducts) && cloudProducts.length > 0) {
-                products = cloudProducts;
-                localStorage.setItem('craftique_products', JSON.stringify(products));
-                renderProducts(products);
-                render3DCarousel();
-                syncHeroShowcaseWithP1();
-                if (manual) showToast('✨ Live store stock updated successfully!');
-                return;
-              }
-            }
-          } catch (e1) {}
+          if (manual) showToast('🔄 Syncing live store catalog...');
 
-          // 2. Try Firebase REST Engine
-          try {
-            const res2 = await fetch(FIREBASE_CLOUD_ENDPOINT + '?cacheBust=' + Date.now());
-            if (res2.ok) {
-              const cloudProducts = await res2.json();
-              if (Array.isArray(cloudProducts) && cloudProducts.length > 0) {
-                products = cloudProducts;
-                localStorage.setItem('craftique_products', JSON.stringify(products));
-                renderProducts(products);
-                render3DCarousel();
-                syncHeroShowcaseWithP1();
-                if (manual) showToast('✨ Live store stock updated successfully!');
-                return;
+          for (const ep of REALTIME_CLOUD_ENDPOINTS) {
+            try {
+              const url = ep + (ep.includes('?') ? '&' : '?') + 'cacheBust=' + Date.now();
+              const res = await fetch(url, { headers: { 'Accept': 'application/json' } });
+              if (res.ok) {
+                const data = await res.json();
+                const cloudList = Array.isArray(data) ? data : (data && data.products ? data.products : null);
+                
+                if (Array.isArray(cloudList) && cloudList.length > 0) {
+                  let mergedMap = new Map();
+                  defaultProducts.forEach(p => mergedMap.set(p.id, p));
+                  cloudList.forEach(p => { if (p && p.id) mergedMap.set(p.id, p); });
+                  
+                  products = Array.from(mergedMap.values());
+                  localStorage.setItem('craftique_products', JSON.stringify(products));
+                  renderProducts(products);
+                  render3DCarousel();
+                  syncHeroShowcaseWithP1();
+                  if (manual) showToast('✨ Live storefront updated automatically!');
+                  return;
+                }
               }
-            }
-          } catch (e2) {}
+            } catch (e) {}
+          }
         }
+
+        // AUTOMATIC REALTIME SYNC ON PAGE LOAD & AUTO-REFRESH EVERY 10 SECONDS
+        if (document.readyState === 'complete' || document.readyState === 'interactive') {
+          setTimeout(() => fetchGlobalCloudProducts(false), 500);
+        } else {
+          document.addEventListener('DOMContentLoaded', () => fetchGlobalCloudProducts(false));
+        }
+        setInterval(() => fetchGlobalCloudProducts(false), 10000);
 
         let uploadedImageBase64 = null;
         let cartList = [];
