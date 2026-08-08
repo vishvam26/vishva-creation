@@ -1442,6 +1442,41 @@
           localStorage.setItem('craftique_products', JSON.stringify(products));
         }
 
+        // GLOBAL REALTIME CLOUD DB SYNC ENGINE (Synchronizes store live for all visitors worldwide)
+        const GLOBAL_CLOUD_DB_ENDPOINT = 'https://api.npoint.io/4a86f7df2b6db7636e29';
+
+        async function syncProductsToGlobalCloud(updatedProducts) {
+          localStorage.setItem('craftique_products', JSON.stringify(updatedProducts));
+          try {
+            await fetch(GLOBAL_CLOUD_DB_ENDPOINT, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(updatedProducts)
+            });
+            showToast('🌍 Storefront synced live for all visitors worldwide!');
+          } catch (e) {
+            console.warn('Global Cloud Sync Notice:', e);
+          }
+        }
+
+        async function fetchGlobalCloudProducts() {
+          try {
+            const res = await fetch(GLOBAL_CLOUD_DB_ENDPOINT);
+            if (res.ok) {
+              const cloudProducts = await res.json();
+              if (Array.isArray(cloudProducts) && cloudProducts.length > 0) {
+                products = cloudProducts;
+                localStorage.setItem('craftique_products', JSON.stringify(products));
+                renderProducts(products);
+                render3DCarousel();
+                syncHeroShowcaseWithP1();
+              }
+            }
+          } catch (e) {
+            console.warn('Using default store fallback:', e);
+          }
+        }
+
         let uploadedImageBase64 = null;
         let cartList = [];
 
@@ -1548,8 +1583,9 @@
             const p1 = products.find(p => p.id === 'p1');
             if (p1) {
               p1.image = photoUrl;
-              localStorage.setItem('craftique_products', JSON.stringify(products));
+              syncProductsToGlobalCloud(products);
               renderProducts(products);
+              render3DCarousel();
             }
 
             localStorage.setItem('craftique_hero_painting', photoUrl);
@@ -1983,8 +2019,9 @@
           };
 
           products.unshift(newProduct);
-          localStorage.setItem('craftique_products', JSON.stringify(products));
+          syncProductsToGlobalCloud(products);
           renderProducts(products);
+          render3DCarousel();
 
           // Reset Form & Close Modal
           if (document.getElementById('upload-form')) document.getElementById('upload-form').reset();
@@ -2242,8 +2279,10 @@
             localStorage.setItem('craftique_p1_customized', 'true');
           }
 
-          localStorage.setItem('craftique_products', JSON.stringify(products));
+          syncProductsToGlobalCloud(products);
           renderProducts(products);
+          render3DCarousel();
+          syncHeroShowcaseWithP1();
           toggleModal('edit-product-modal', false);
           toggleModal('admin-modal', true);
           showToast('🎉 Product details updated successfully!');
@@ -2285,8 +2324,10 @@
           if (confirm('Are you sure you want to delete this product from your store?')) {
             products = products.filter(p => p.id !== id);
             cartList = cartList.filter(c => c.product.id !== id);
-            localStorage.setItem('craftique_products', JSON.stringify(products));
+            syncProductsToGlobalCloud(products);
             renderProducts(products);
+            render3DCarousel();
+            syncHeroShowcaseWithP1();
             updateCartUI();
             alert('Product deleted successfully!');
           }
