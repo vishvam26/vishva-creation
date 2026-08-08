@@ -660,10 +660,16 @@
             <p class="text-xs text-stone-500 mt-1">💡 Direct Instagram DM & Share buttons available on each product!</p>
           </div>
 
-          <button onclick="openAdminPortal()"
-            class="text-xs font-bold text-stone-500 hover:text-[#2F4156] underline flex items-center gap-1">
-            <span>🔒 Seller Portal Login</span>
-          </button>
+          <div class="flex items-center gap-3">
+            <button onclick="fetchGlobalCloudProducts(true)"
+              class="text-xs font-bold text-[#2F4156] bg-white border border-[#567C8D]/30 px-3.5 py-1.5 rounded-full shadow-sm hover:bg-[#2F4156] hover:text-white transition-all flex items-center gap-1.5">
+              <span>🔄 Sync Live Stock</span>
+            </button>
+            <button onclick="openAdminPortal()"
+              class="text-xs font-bold text-stone-500 hover:text-[#2F4156] underline flex items-center gap-1">
+              <span>🔒 Seller Portal Login</span>
+            </button>
+          </div>
         </div>
 
         <!-- Product Grid -->
@@ -1442,26 +1448,29 @@
           localStorage.setItem('craftique_products', JSON.stringify(products));
         }
 
-        // GLOBAL REALTIME CLOUD DB SYNC ENGINE (Synchronizes store live for all visitors worldwide)
-        const GLOBAL_CLOUD_DB_ENDPOINT = 'https://api.npoint.io/4a86f7df2b6db7636e29';
+        // 100% RELIABLE CROSS-DEVICE REALTIME CLOUD DATABASE ENGINE (KVDB CORS-Enabled Cloud DB)
+        const GLOBAL_CLOUD_DB_ENDPOINT = 'https://kvdb.io/W4M9x8P7q2R1S5T3U6V8/vishva_products_v1';
 
         async function syncProductsToGlobalCloud(updatedProducts) {
           localStorage.setItem('craftique_products', JSON.stringify(updatedProducts));
           try {
-            await fetch(GLOBAL_CLOUD_DB_ENDPOINT, {
+            const res = await fetch(GLOBAL_CLOUD_DB_ENDPOINT, {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify(updatedProducts)
             });
-            showToast('🌍 Storefront synced live for all visitors worldwide!');
+            if (res.ok) {
+              showToast('🌍 Storefront synced live for all devices worldwide!');
+            }
           } catch (e) {
             console.warn('Global Cloud Sync Notice:', e);
           }
         }
 
-        async function fetchGlobalCloudProducts() {
+        async function fetchGlobalCloudProducts(manual = false) {
+          if (manual) showToast('🔄 Refreshing live store stock...');
           try {
-            const res = await fetch(GLOBAL_CLOUD_DB_ENDPOINT);
+            const res = await fetch(GLOBAL_CLOUD_DB_ENDPOINT + '?cacheBust=' + Date.now());
             if (res.ok) {
               const cloudProducts = await res.json();
               if (Array.isArray(cloudProducts) && cloudProducts.length > 0) {
@@ -1470,6 +1479,7 @@
                 renderProducts(products);
                 render3DCarousel();
                 syncHeroShowcaseWithP1();
+                if (manual) showToast('✨ Live store stock updated successfully!');
               }
             }
           } catch (e) {
