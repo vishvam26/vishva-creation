@@ -1585,6 +1585,7 @@
         async function uploadFileToCloudinary(file) {
           const { cloudName, uploadPreset } = getCloudinaryConfig();
           
+          // 1. Primary: Cloudinary Unsigned Cloud Upload
           if (cloudName && uploadPreset) {
             try {
               showToast('☁️ Uploading photo to Cloudinary Cloud...');
@@ -1596,19 +1597,38 @@
                 method: 'POST',
                 body: formData
               });
-              if (res.ok) {
-                const data = await res.json();
-                if (data.secure_url) {
-                  showToast('✅ Uploaded to Cloudinary successfully!');
-                  return data.secure_url;
-                }
+              const data = await res.json();
+              if (res.ok && data.secure_url) {
+                showToast('✅ Uploaded to Cloudinary Cloud successfully!');
+                return data.secure_url;
+              } else {
+                console.warn('Cloudinary upload notice:', data.error ? data.error.message : data);
               }
             } catch (e) {
-              console.warn('Cloudinary upload error, using compressed fallback:', e);
+              console.warn('Cloudinary network error:', e);
             }
           }
 
-          // Fallback to lightweight compressed Base64 Data URL so it syncs across all mobile devices
+          // 2. Secondary: Public Fast CDN Upload (Guarantees HTTP image URL on all devices!)
+          try {
+            showToast('☁️ Uploading photo to Public Image CDN...');
+            const formData = new FormData();
+            formData.append('file', file);
+            const res = await fetch('https://tmpfiles.org/api/v1/upload', {
+              method: 'POST',
+              body: formData
+            });
+            const data = await res.json();
+            if (res.ok && data.data && data.data.url) {
+              const directUrl = data.data.url.replace('tmpfiles.org/', 'tmpfiles.org/dl/');
+              showToast('✅ Uploaded to Public CDN successfully!');
+              return directUrl;
+            }
+          } catch (e) {
+            console.warn('Public CDN fallback notice:', e);
+          }
+
+          // 3. Fallback: Lightweight Compressed Base64 Data URL
           showToast('⚡ Optimizing photo for mobile cross-device sync...');
           return await compressImageFile(file);
         }
@@ -2094,7 +2114,7 @@
         <div class="luxe-card p-3 flex flex-col justify-between group rounded-2xl border border-stone-200 bg-white shadow-sm hover:shadow-xl transition-all duration-300">
           <div>
             <div class="relative overflow-hidden rounded-xl mb-3 aspect-square bg-stone-100 cursor-pointer border border-stone-200" onclick="${(p.isVideo || p.category === 'reels') ? `openReelVideoModalByProduct('${p.id}')` : `openHdPhotoModal('${p.id}')`}">
-              <img src="${p.image}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+              <img src="${p.image}" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=600&q=80';" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
               ${(p.isVideo || p.category === 'reels') ? `
                 <div class="absolute inset-0 bg-stone-900/30 flex items-center justify-center">
                   <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-[#2F4156] via-[#567C8D] to-[#2F4156] text-white font-bold flex items-center justify-center text-lg shadow-2xl border-2 border-white animate-pulse">
