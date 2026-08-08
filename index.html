@@ -1594,9 +1594,9 @@
           document.getElementById('artist-profile-img').src = savedArtistPhoto;
         }
 
-        // Dynamic sync hero showcase card with product p1
+        // Dynamic sync hero showcase card with global product heroImage
         function syncHeroShowcaseWithP1() {
-          const p1 = products.find(p => p.id === 'p1') || products[0];
+          const p1 = products.find(p => p.heroImage || p.id === 'p1') || products[0];
           if (!p1) return;
 
           const heroImg = document.getElementById('hero-featured-painting-img');
@@ -1604,8 +1604,7 @@
           const badgeTitle = document.getElementById('hero-badge-title');
           const badgePrice = document.getElementById('hero-badge-price');
 
-          const savedHeroPainting = localStorage.getItem('craftique_hero_painting');
-          const finalImg = savedHeroPainting || p1.image;
+          const finalImg = p1.heroImage || p1.image || localStorage.getItem('craftique_hero_painting');
 
           if (heroImg && finalImg) heroImg.src = finalImg;
           if (badgeImg && finalImg) badgeImg.src = finalImg;
@@ -1747,16 +1746,22 @@
             if (heroImg) heroImg.src = photoUrl;
             if (badgeImg) badgeImg.src = photoUrl;
 
+            if (products && products.length > 0) {
+              products[0].heroImage = photoUrl;
+            }
             const p1 = products.find(p => p.id === 'p1');
             if (p1) {
+              p1.heroImage = photoUrl;
               p1.image = photoUrl;
-              syncProductsToGlobalCloud(products);
-              renderProducts(products);
-              render3DCarousel();
             }
 
+            syncProductsToGlobalCloud(products);
+            renderProducts(products);
+            render3DCarousel();
+            syncHeroShowcaseWithP1();
+
             localStorage.setItem('craftique_hero_painting', photoUrl);
-            showToast('🎉 Main showcase painting updated successfully!');
+            showToast('🎉 Main showcase painting updated live across all devices!');
             toggleModal('admin-modal', false);
           }
         }
