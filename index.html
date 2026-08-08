@@ -1697,23 +1697,21 @@
           }
         }
 
-        function handleDeviceFileSelect(input) {
+        async function handleDeviceFileSelect(input) {
           if (input.files && input.files.length > 0) {
+            showToast('⏳ Processing photo upload...');
             currentUploadPhotosList = [];
-            let loadedCount = 0;
 
-            Array.from(input.files).forEach(file => {
-              const reader = new FileReader();
-              reader.onload = function (e) {
-                currentUploadPhotosList.push(e.target.result);
-                loadedCount++;
-                if (loadedCount === input.files.length) {
-                  currentUploadPhotoUrl = currentUploadPhotosList[0];
-                  showPhotoPreview(currentUploadPhotoUrl, `Source: ${loadedCount} Device Photo(s) Selected`);
-                }
-              };
-              reader.readAsDataURL(file);
-            });
+            for (let i = 0; i < input.files.length; i++) {
+              const url = await uploadFileToCloudinary(input.files[i]);
+              if (url) currentUploadPhotosList.push(url);
+            }
+
+            if (currentUploadPhotosList.length > 0) {
+              currentUploadPhotoUrl = currentUploadPhotosList[0];
+              showPhotoPreview(currentUploadPhotoUrl, `Source: ${currentUploadPhotosList.length} Device Photo(s) Uploaded`);
+              showToast('✅ Photo(s) ready for publishing!');
+            }
           }
         }
 
@@ -1745,23 +1743,20 @@
           showToast(`✨ Cover photo fetched! Tap "+ Add Extra Slide Photo" to add Slide 2, 3, 4!`);
         }
 
-        function addExtraPhotoFromDevice(input) {
+        async function addExtraPhotoFromDevice(input) {
           if (input.files && input.files.length > 0) {
-            let loaded = 0;
-            Array.from(input.files).forEach(file => {
-              const reader = new FileReader();
-              reader.onload = function (e) {
-                currentUploadPhotosList.push(e.target.result);
-                loaded++;
-                if (loaded === input.files.length) {
-                  currentUploadPhotosList = Array.from(new Set(currentUploadPhotosList));
-                  currentUploadPhotoUrl = currentUploadPhotosList[0];
-                  showPhotoPreview(currentUploadPhotoUrl, `Source: ${currentUploadPhotosList.length} Unique Slide Photo(s) Ready`);
-                  showToast(`🎉 Added ${loaded} photo(s) to product slides!`);
-                }
-              };
-              reader.readAsDataURL(file);
-            });
+            showToast('⏳ Uploading additional slide photo(s)...');
+            for (let i = 0; i < input.files.length; i++) {
+              const url = await uploadFileToCloudinary(input.files[i]);
+              if (url && !currentUploadPhotosList.includes(url)) {
+                currentUploadPhotosList.push(url);
+              }
+            }
+            if (currentUploadPhotosList.length > 0) {
+              currentUploadPhotoUrl = currentUploadPhotosList[0];
+              showPhotoPreview(currentUploadPhotoUrl, `Source: ${currentUploadPhotosList.length} Unique Slide Photo(s) Ready`);
+              showToast(`🎉 Extra slide photo(s) added!`);
+            }
           }
         }
 
@@ -1978,12 +1973,13 @@
           }
         }
 
-        function handleAddNewProductDirect() {
+        async function handleAddNewProductDirect() {
           const titleEl = document.getElementById('p-title');
           const priceEl = document.getElementById('p-price');
           const descEl = document.getElementById('p-desc');
           const catEl = document.getElementById('p-cat');
           const igUrlEl = document.getElementById('p-ig-url');
+          const fileInput = document.getElementById('p-file-input');
 
           const title = titleEl ? titleEl.value.trim() : '';
           const cat = catEl ? catEl.value : 'paintings';
@@ -1991,14 +1987,19 @@
           const desc = descEl ? descEl.value.trim() : '';
           const igUrl = igUrlEl ? igUrlEl.value.trim() : '';
 
+          // Ensure selected device file is uploaded
+          if (fileInput && fileInput.files && fileInput.files.length > 0 && (!currentUploadPhotoUrl || currentUploadPhotosList.length === 0)) {
+            await handleDeviceFileSelect(fileInput);
+          }
+
           if (igUrl && !currentUploadPhotoUrl) {
             currentUploadPhotoUrl = extractIgMediaUrl(igUrl);
             currentUploadPhotosList = [currentUploadPhotoUrl];
           }
 
           if (!currentUploadPhotoUrl) {
-            currentUploadPhotoUrl = "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=800&q=80";
-            currentUploadPhotosList = [currentUploadPhotoUrl];
+            alert('⚠️ Please select a photo from your device or paste an Instagram photo link first!');
+            return;
           }
 
           const isReelUrl = (igUrl && igUrl.toLowerCase().includes('/reel/')) || (currentUploadPhotoUrl && currentUploadPhotoUrl.toLowerCase().includes('.mp4'));
@@ -2025,6 +2026,7 @@
 
           // Reset Form & Close Modal
           if (document.getElementById('upload-form')) document.getElementById('upload-form').reset();
+          if (fileInput) fileInput.value = '';
           currentUploadPhotoUrl = null;
           currentUploadPhotosList = [];
           const box = document.getElementById('photo-preview-box');
