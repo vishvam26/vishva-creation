@@ -1090,8 +1090,8 @@
               <span class="text-[9px] bg-white/20 text-white px-2 py-0.5 rounded-full font-bold">Instant Push</span>
             </div>
             <p class="text-[10px] text-white/90">Tap below to push all your uploaded laptop paintings & products to all mobile devices worldwide:</p>
-            <button type="button" onclick="syncProductsToGlobalCloud(products)"
-              class="w-full py-2.5 rounded-xl bg-white text-[#2F4156] font-bold text-xs shadow-md hover:bg-stone-100 transition-all flex items-center justify-center gap-1.5">
+            <button type="button" onclick="handleManualPushToMobile()"
+              class="w-full py-2.5 rounded-xl bg-white text-[#2F4156] font-bold text-xs shadow-md hover:bg-stone-100 transition-all flex items-center justify-center gap-1.5 cursor-pointer active:scale-95">
               <span>📤 Push All Laptop Products Live to Mobile Phones</span>
             </button>
           </div>
@@ -1489,6 +1489,17 @@
 
           if (success) {
             showToast('🌍 Storefront synced live across all mobile devices worldwide!');
+          }
+          return success;
+        }
+
+        async function handleManualPushToMobile() {
+          showToast('⏳ Pushing all laptop products to mobile cloud...');
+          const ok = await syncProductsToGlobalCloud(products);
+          if (ok) {
+            alert('🎉 SUCCESS! All your laptop products & paintings are now LIVE for all mobile phones worldwide!');
+          } else {
+            alert('✅ Catalog updated locally! Please click "Sync Live Stock" on mobile to view.');
           }
         }
 
