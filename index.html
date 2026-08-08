@@ -1461,46 +1461,66 @@
           localStorage.setItem('craftique_products', JSON.stringify(products));
         }
 
-        // 100% RELIABLE CROSS-DEVICE REALTIME CLOUD DATABASE ENGINE (KVDB CORS-Enabled Cloud DB)
-        const GLOBAL_CLOUD_DB_ENDPOINT = 'https://kvdb.io/W4M9x8P7q2R1S5T3U6V8/vishva_products_v1';
+        // MULTI-FALLBACK CROSS-DEVICE REALTIME CLOUD DATABASE ENGINE
+        const CLOUD_ENDPOINTS = [
+          'https://jsonblob.com/api/jsonBlob/1337482910482014208',
+          'https://kvdb.io/W4M9x8P7q2R1S5T3U6V8/vishva_products_v1'
+        ];
 
         async function syncProductsToGlobalCloud(updatedProducts) {
           localStorage.setItem('craftique_products', JSON.stringify(updatedProducts));
-          try {
-            const res = await fetch(GLOBAL_CLOUD_DB_ENDPOINT, {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify(updatedProducts)
-            });
-            if (res.ok) {
-              showToast('🌍 Storefront synced live for all devices worldwide!');
+          let success = false;
+
+          for (const ep of CLOUD_ENDPOINTS) {
+            try {
+              const res = await fetch(ep, {
+                method: ep.includes('jsonblob') ? 'PUT' : 'POST',
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify(updatedProducts)
+              });
+              if (res.ok) {
+                success = true;
+                break;
+              }
+            } catch (e) {
+              console.warn('Cloud endpoint update notice:', ep, e);
             }
-          } catch (e) {
-            console.warn('Global Cloud Sync Notice:', e);
+          }
+
+          if (success) {
+            showToast('🌍 Storefront synced live across all mobile devices worldwide!');
           }
         }
 
         async function fetchGlobalCloudProducts(manual = false) {
           if (manual) showToast('🔄 Refreshing live store stock...');
-          try {
-            const res = await fetch(GLOBAL_CLOUD_DB_ENDPOINT + '?cacheBust=' + Date.now());
-            if (res.ok) {
-              const cloudProducts = await res.json();
-              if (Array.isArray(cloudProducts) && cloudProducts.length > 0) {
-                products = cloudProducts;
-                localStorage.setItem('craftique_products', JSON.stringify(products));
-                renderProducts(products);
-                render3DCarousel();
-                syncHeroShowcaseWithP1();
-                if (manual) showToast('✨ Live store stock updated successfully!');
-              } else {
-                syncProductsToGlobalCloud(products);
+          let loaded = false;
+
+          for (const ep of CLOUD_ENDPOINTS) {
+            try {
+              const url = ep + (ep.includes('?') ? '&' : '?') + 'cacheBust=' + Date.now();
+              const res = await fetch(url, { headers: { 'Accept': 'application/json' } });
+              if (res.ok) {
+                const cloudProducts = await res.json();
+                const list = Array.isArray(cloudProducts) ? cloudProducts : (cloudProducts && cloudProducts.products ? cloudProducts.products : null);
+                if (Array.isArray(list) && list.length > 0) {
+                  products = list;
+                  localStorage.setItem('craftique_products', JSON.stringify(products));
+                  renderProducts(products);
+                  render3DCarousel();
+                  syncHeroShowcaseWithP1();
+                  loaded = true;
+                  if (manual) showToast('✨ Live store stock updated successfully!');
+                  break;
+                }
               }
-            } else {
-              syncProductsToGlobalCloud(products);
+            } catch (e) {
+              console.warn('Cloud fetch notice:', ep, e);
             }
-          } catch (e) {
-            console.warn('Using default store fallback:', e);
+          }
+
+          if (!loaded) {
+            syncProductsToGlobalCloud(products);
           }
         }
 
