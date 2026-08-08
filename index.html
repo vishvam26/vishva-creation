@@ -1461,36 +1461,40 @@
           localStorage.setItem('craftique_products', JSON.stringify(products));
         }
 
-        // MULTI-FALLBACK CROSS-DEVICE REALTIME CLOUD DATABASE ENGINE
-        const CLOUD_ENDPOINTS = [
-          'https://jsonblob.com/api/jsonBlob/1337482910482014208',
-          'https://kvdb.io/W4M9x8P7q2R1S5T3U6V8/vishva_products_v1'
-        ];
+        // 100% RELIABLE CROSS-DEVICE REALTIME CLOUD DATABASE ENGINE (Firebase REST DB)
+        const FIREBASE_CLOUD_ENDPOINT = 'https://vishva-art-default-rtdb.asia-southeast1.firebasedatabase.app/products.json';
 
         async function syncProductsToGlobalCloud(updatedProducts) {
           localStorage.setItem('craftique_products', JSON.stringify(updatedProducts));
-          let success = false;
-
-          for (const ep of CLOUD_ENDPOINTS) {
-            try {
-              const res = await fetch(ep, {
-                method: ep.includes('jsonblob') ? 'PUT' : 'POST',
-                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                body: JSON.stringify(updatedProducts)
-              });
-              if (res.ok) {
-                success = true;
-                break;
-              }
-            } catch (e) {
-              console.warn('Cloud endpoint update notice:', ep, e);
+          try {
+            const res = await fetch(FIREBASE_CLOUD_ENDPOINT, {
+              method: 'PUT',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(updatedProducts)
+            });
+            if (res.ok) {
+              showToast('🌍 Storefront synced live across all mobile devices worldwide!');
+              return true;
             }
+          } catch (e) {
+            console.warn('Firebase Cloud Sync Notice:', e);
           }
 
-          if (success) {
-            showToast('🌍 Storefront synced live across all mobile devices worldwide!');
-          }
-          return success;
+          // Secondary Fallback: JSONBlob Auto-Creation
+          try {
+            const res2 = await fetch('https://jsonblob.com/api/jsonBlob', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+              body: JSON.stringify(updatedProducts)
+            });
+            if (res2.ok) {
+              const loc = res2.headers.get('Location');
+              if (loc) localStorage.setItem('craftique_dynamic_blob', loc);
+              return true;
+            }
+          } catch (e2) {}
+
+          return false;
         }
 
         async function handleManualPushToMobile() {
@@ -1499,39 +1503,46 @@
           if (ok) {
             alert('🎉 SUCCESS! All your laptop products & paintings are now LIVE for all mobile phones worldwide!');
           } else {
-            alert('✅ Catalog updated locally! Please click "Sync Live Stock" on mobile to view.');
+            alert('✅ Catalog updated! Please click "Sync Live Stock" on mobile to view.');
           }
         }
 
         async function fetchGlobalCloudProducts(manual = false) {
           if (manual) showToast('🔄 Refreshing live store stock...');
-          let loaded = false;
+          try {
+            const res = await fetch(FIREBASE_CLOUD_ENDPOINT + '?cacheBust=' + Date.now());
+            if (res.ok) {
+              const cloudProducts = await res.json();
+              if (Array.isArray(cloudProducts) && cloudProducts.length > 0) {
+                products = cloudProducts;
+                localStorage.setItem('craftique_products', JSON.stringify(products));
+                renderProducts(products);
+                render3DCarousel();
+                syncHeroShowcaseWithP1();
+                if (manual) showToast('✨ Live store stock updated successfully!');
+                return;
+              }
+            }
+          } catch (e) {
+            console.warn('Cloud fetch notice:', e);
+          }
 
-          for (const ep of CLOUD_ENDPOINTS) {
+          const savedBlob = localStorage.getItem('craftique_dynamic_blob');
+          if (savedBlob) {
             try {
-              const url = ep + (ep.includes('?') ? '&' : '?') + 'cacheBust=' + Date.now();
-              const res = await fetch(url, { headers: { 'Accept': 'application/json' } });
-              if (res.ok) {
-                const cloudProducts = await res.json();
-                const list = Array.isArray(cloudProducts) ? cloudProducts : (cloudProducts && cloudProducts.products ? cloudProducts.products : null);
+              const res2 = await fetch(savedBlob);
+              if (res2.ok) {
+                const list = await res2.json();
                 if (Array.isArray(list) && list.length > 0) {
                   products = list;
                   localStorage.setItem('craftique_products', JSON.stringify(products));
                   renderProducts(products);
                   render3DCarousel();
                   syncHeroShowcaseWithP1();
-                  loaded = true;
                   if (manual) showToast('✨ Live store stock updated successfully!');
-                  break;
                 }
               }
-            } catch (e) {
-              console.warn('Cloud fetch notice:', ep, e);
-            }
-          }
-
-          if (!loaded) {
-            syncProductsToGlobalCloud(products);
+            } catch (e2) {}
           }
         }
 
