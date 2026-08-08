@@ -1397,7 +1397,7 @@
             title: "hbcbucb",
             category: "paintings",
             price: 59962,
-            image: "https://res.cloudinary.com/vektssxa/image/upload/v1/hbcbucb",
+            image: "https://res.cloudinary.com/vektssxa/image/upload/wwa8mdlfkbfogtos7yxe.jpg",
             desc: "Custom handcrafted red car canvas painting artwork by Vishva (@__vishh.art__)."
           },
           {
@@ -1679,26 +1679,41 @@
             }
           }
 
-          // 2. Secondary: Public Fast CDN Upload (Guarantees HTTP image URL on all devices!)
+          // 2. Secondary: ImgBB High-Speed Global Image CDN Engine
           try {
-            showToast('☁️ Uploading photo to Public Image CDN...');
+            showToast('☁️ Uploading photo to Global Image CDN...');
             const formData = new FormData();
-            formData.append('file', file);
-            const res = await fetch('https://tmpfiles.org/api/v1/upload', {
+            formData.append('image', file);
+            const res = await fetch('https://api.imgbb.com/1/upload?key=6d00053633a6b9658500e84a9e49c716', {
               method: 'POST',
               body: formData
             });
             const data = await res.json();
             if (res.ok && data.data && data.data.url) {
-              const directUrl = data.data.url.replace('tmpfiles.org/', 'tmpfiles.org/dl/');
-              showToast('✅ Uploaded to Public CDN successfully!');
-              return directUrl;
+              showToast('✅ Uploaded to Global CDN successfully!');
+              return data.data.url;
             }
           } catch (e) {
-            console.warn('Public CDN fallback notice:', e);
+            console.warn('ImgBB CDN upload notice:', e);
           }
 
-          // 3. Fallback: Lightweight Compressed Base64 Data URL
+          // 3. Tertiary: Catbox Public Image CDN Engine
+          try {
+            const formData = new FormData();
+            formData.append('reqtype', 'fileupload');
+            formData.append('fileToUpload', file);
+            const res = await fetch('https://catbox.moe/user/api.php', {
+              method: 'POST',
+              body: formData
+            });
+            const textUrl = await res.text();
+            if (res.ok && textUrl.startsWith('http')) {
+              showToast('✅ Uploaded to Public CDN successfully!');
+              return textUrl.trim();
+            }
+          } catch (e2) {}
+
+          // 4. Fallback: Lightweight Compressed Base64 Data URL
           showToast('⚡ Optimizing photo for mobile cross-device sync...');
           return await compressImageFile(file);
         }
