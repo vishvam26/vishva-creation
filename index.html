@@ -1491,15 +1491,21 @@
         let isSellerAuthenticated = false;
         let currentShareProduct = null;
 
-        let products = JSON.parse(localStorage.getItem('craftique_products')) || defaultProducts;
-        // Sync p1 default title & price to Village Landscape Oil Painting & 59999 if not specifically edited
-        const p1Item = products.find(p => p.id === 'p1');
-        if (p1Item && !localStorage.getItem('craftique_p1_customized')) {
-          p1Item.title = "Village Landscape Oil Painting";
-          p1Item.price = 59999;
-          p1Item.desc = "Original hand-painted acrylic & oil canvas artwork of a serene village landscape by Vishva (@__vishh.art__).";
-          localStorage.setItem('craftique_products', JSON.stringify(products));
+        let savedLocalProducts = [];
+        try {
+          savedLocalProducts = JSON.parse(localStorage.getItem('craftique_products')) || [];
+        } catch (e) {}
+
+        // Smart catalog merger: Ensure default products (including all Cloudinary items) are ALWAYS present!
+        let productsMap = new Map();
+        defaultProducts.forEach(p => productsMap.set(p.id, p));
+        if (Array.isArray(savedLocalProducts)) {
+          savedLocalProducts.forEach(p => {
+            if (p && p.id) productsMap.set(p.id, p);
+          });
         }
+        let products = Array.from(productsMap.values());
+        localStorage.setItem('craftique_products', JSON.stringify(products));
 
         // 100% RELIABLE DUAL CLOUD DATABASE ENGINE (KVDB + Firebase REST Sync)
         const FIREBASE_CLOUD_ENDPOINT = 'https://vishva-art-default-rtdb.asia-southeast1.firebasedatabase.app/products.json';
