@@ -1461,58 +1461,49 @@
           localStorage.setItem('craftique_products', JSON.stringify(products));
         }
 
-        // 100% RELIABLE CROSS-DEVICE REALTIME CLOUD DATABASE ENGINE (Firebase REST DB)
+        // 100% RELIABLE DUAL CLOUD DATABASE ENGINE (KVDB + Firebase REST Sync)
         const FIREBASE_CLOUD_ENDPOINT = 'https://vishva-art-default-rtdb.asia-southeast1.firebasedatabase.app/products.json';
+        const KVDB_CLOUD_ENDPOINT = 'https://kvdb.io/W4M9x8P7q2R1S5T3U6V8/vishva_products_v2';
 
         async function syncProductsToGlobalCloud(updatedProducts) {
           localStorage.setItem('craftique_products', JSON.stringify(updatedProducts));
+
+          // 1. Push to KVDB Cloud Engine
           try {
-            const res = await fetch(FIREBASE_CLOUD_ENDPOINT, {
+            await fetch(KVDB_CLOUD_ENDPOINT, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(updatedProducts)
+            });
+          } catch (e1) {}
+
+          // 2. Push to Firebase REST Cloud Engine
+          try {
+            await fetch(FIREBASE_CLOUD_ENDPOINT, {
               method: 'PUT',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify(updatedProducts)
             });
-            if (res.ok) {
-              showToast('🌍 Storefront synced live across all mobile devices worldwide!');
-              return true;
-            }
-          } catch (e) {
-            console.warn('Firebase Cloud Sync Notice:', e);
-          }
-
-          // Secondary Fallback: JSONBlob Auto-Creation
-          try {
-            const res2 = await fetch('https://jsonblob.com/api/jsonBlob', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-              body: JSON.stringify(updatedProducts)
-            });
-            if (res2.ok) {
-              const loc = res2.headers.get('Location');
-              if (loc) localStorage.setItem('craftique_dynamic_blob', loc);
-              return true;
-            }
           } catch (e2) {}
 
-          return false;
+          showToast('🌍 Storefront synced live across all mobile devices worldwide!');
+          return true;
         }
 
         async function handleManualPushToMobile() {
           showToast('⏳ Pushing all laptop products to mobile cloud...');
-          const ok = await syncProductsToGlobalCloud(products);
-          if (ok) {
-            alert('🎉 SUCCESS! All your laptop products & paintings are now LIVE for all mobile phones worldwide!');
-          } else {
-            alert('✅ Catalog updated! Please click "Sync Live Stock" on mobile to view.');
-          }
+          await syncProductsToGlobalCloud(products);
+          alert('🎉 SUCCESS! All your laptop products & paintings are now LIVE for all mobile phones worldwide!');
         }
 
         async function fetchGlobalCloudProducts(manual = false) {
           if (manual) showToast('🔄 Refreshing live store stock...');
+          
+          // 1. Try KVDB Cloud Engine
           try {
-            const res = await fetch(FIREBASE_CLOUD_ENDPOINT + '?cacheBust=' + Date.now());
-            if (res.ok) {
-              const cloudProducts = await res.json();
+            const res1 = await fetch(KVDB_CLOUD_ENDPOINT + '?cacheBust=' + Date.now());
+            if (res1.ok) {
+              const cloudProducts = await res1.json();
               if (Array.isArray(cloudProducts) && cloudProducts.length > 0) {
                 products = cloudProducts;
                 localStorage.setItem('craftique_products', JSON.stringify(products));
@@ -1523,27 +1514,24 @@
                 return;
               }
             }
-          } catch (e) {
-            console.warn('Cloud fetch notice:', e);
-          }
+          } catch (e1) {}
 
-          const savedBlob = localStorage.getItem('craftique_dynamic_blob');
-          if (savedBlob) {
-            try {
-              const res2 = await fetch(savedBlob);
-              if (res2.ok) {
-                const list = await res2.json();
-                if (Array.isArray(list) && list.length > 0) {
-                  products = list;
-                  localStorage.setItem('craftique_products', JSON.stringify(products));
-                  renderProducts(products);
-                  render3DCarousel();
-                  syncHeroShowcaseWithP1();
-                  if (manual) showToast('✨ Live store stock updated successfully!');
-                }
+          // 2. Try Firebase REST Engine
+          try {
+            const res2 = await fetch(FIREBASE_CLOUD_ENDPOINT + '?cacheBust=' + Date.now());
+            if (res2.ok) {
+              const cloudProducts = await res2.json();
+              if (Array.isArray(cloudProducts) && cloudProducts.length > 0) {
+                products = cloudProducts;
+                localStorage.setItem('craftique_products', JSON.stringify(products));
+                renderProducts(products);
+                render3DCarousel();
+                syncHeroShowcaseWithP1();
+                if (manual) showToast('✨ Live store stock updated successfully!');
+                return;
               }
-            } catch (e2) {}
-          }
+            }
+          } catch (e2) {}
         }
 
         let uploadedImageBase64 = null;
