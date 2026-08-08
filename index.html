@@ -2267,6 +2267,7 @@
           const hashedEntered = btoa(enteredPin + "_VISH_CREATION_SECRET_2026");
           if (hashedEntered === SECRET_PIN_HASH) {
             isSellerAuthenticated = true;
+            initCloudinaryInputs();
             toggleModal('pin-modal', false);
             toggleModal('admin-modal', true);
             document.getElementById('pin-input').value = '';
