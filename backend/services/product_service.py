@@ -6,7 +6,7 @@ from schemas.product import ProductCreate
 
 logger = logging.getLogger("uvicorn")
 
-# Default Artisanal Products Catalog matching Supabase Table Columns
+# Default Artisanal Products Catalog matching exact Supabase Non-Nullable Schema Constraints
 DEFAULT_PRODUCTS = [
     {
         "id": "p1",
@@ -15,7 +15,9 @@ DEFAULT_PRODUCTS = [
         "price": 5999.0,
         "category": "paintings",
         "image_url": "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=600&q=80",
-        "status": "published"
+        "image_path": "paintings/p1.jpg",
+        "status": "published",
+        "stock": 1
     },
     {
         "id": "p2",
@@ -24,7 +26,9 @@ DEFAULT_PRODUCTS = [
         "price": 8999.0,
         "category": "paintings",
         "image_url": "https://images.unsplash.com/photo-1582562124811-c09040d0a901?auto=format&fit=crop&w=600&q=80",
-        "status": "published"
+        "image_path": "paintings/p2.jpg",
+        "status": "published",
+        "stock": 1
     },
     {
         "id": "p3",
@@ -33,7 +37,9 @@ DEFAULT_PRODUCTS = [
         "price": 1499.0,
         "category": "crochet-flowers",
         "image_url": "https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=600&q=80",
-        "status": "published"
+        "image_path": "crochet/p3.jpg",
+        "status": "published",
+        "stock": 1
     },
     {
         "id": "p4",
@@ -42,7 +48,9 @@ DEFAULT_PRODUCTS = [
         "price": 999.0,
         "category": "crochet-plushies",
         "image_url": "https://images.unsplash.com/photo-1558679908-541bcf1249ff?auto=format&fit=crop&w=600&q=80",
-        "status": "published"
+        "image_path": "crochet/p4.jpg",
+        "status": "published",
+        "stock": 1
     }
 ]
 
@@ -55,7 +63,7 @@ class ProductService:
                 if response.data and len(response.data) > 0:
                     return response.data
                 else:
-                    # Auto-seed initial catalog into Supabase Table
+                    # Auto-seed initial catalog into Supabase Table satisfying all non-nullable constraints
                     logger.info("Supabase table empty. Auto-seeding initial artisanal products catalog...")
                     for p in DEFAULT_PRODUCTS:
                         try:
@@ -65,7 +73,9 @@ class ProductService:
                                 "price": p["price"],
                                 "category": p["category"],
                                 "image_url": p["image_url"],
-                                "status": "published"
+                                "image_path": p["image_path"],
+                                "status": "published",
+                                "stock": p["stock"]
                             }).execute()
                         except Exception as err:
                             logger.error(f"Error seeding product {p['title']}: {err}")
@@ -90,7 +100,9 @@ class ProductService:
                     "price": new_product["price"],
                     "category": new_product.get("category", "paintings"),
                     "image_url": new_product.get("image_url", ""),
-                    "status": "published"
+                    "image_path": new_product.get("image_path", "paintings/default.jpg"),
+                    "status": "published",
+                    "stock": new_product.get("stock", 1)
                 }
                 response = supabase.table("products").insert(payload).execute()
                 if response.data and len(response.data) > 0:

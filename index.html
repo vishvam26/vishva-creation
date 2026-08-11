@@ -1550,7 +1550,9 @@
                   price: Number(p.price) || 0,
                   category: p.category || 'paintings',
                   image_url: p.image || '',
-                  status: 'published'
+                  image_path: 'paintings/default.jpg',
+                  status: 'published',
+                  stock: 1
                 })))
               });
 
