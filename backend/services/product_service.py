@@ -1,7 +1,8 @@
 import uuid
 import logging
+import requests
 from typing import List
-from db.supabase import supabase
+from config.settings import settings
 from schemas.product import ProductCreate
 
 logger = logging.getLogger("uvicorn")
@@ -56,35 +57,54 @@ DEFAULT_PRODUCTS = [
 
 class ProductService:
     @staticmethod
+    def _get_headers() -> dict:
+        return {
+            "apikey": settings.SUPABASE_KEY,
+            "Authorization": f"Bearer {settings.SUPABASE_KEY}",
+            "Content-Type": "application/json",
+            "Prefer": "return=representation"
+        }
+
+    @staticmethod
     async def get_all_products() -> List[dict]:
-        if supabase:
+        if settings.SUPABASE_URL and settings.SUPABASE_KEY:
             try:
-                response = supabase.table("products").select("*").execute()
-                if response.data and len(response.data) > 0:
-                    return response.data
+                headers = ProductService._get_headers()
+                url = f"{settings.SUPABASE_URL}/rest/v1/products?select=*"
+                res = requests.get(url, headers=headers, timeout=5)
+                
+                if res.status_code == 200:
+                    data = res.json()
+                    if isinstance(data, list) and len(data) > 0:
+                        return data
+                    else:
+                        # Auto-seed initial catalog into Supabase Table
+                        logger.info("Supabase table empty. Auto-seeding initial catalog via REST...")
+                        for p in DEFAULT_PRODUCTS:
+                            try:
+                                payload = {
+                                    "title": p["title"],
+                                    "description": p["description"],
+                                    "price": p["price"],
+                                    "category": p["category"],
+                                    "image_url": p["image_url"],
+                                    "image_path": p["image_path"],
+                                    "status": "published",
+                                    "stock": p["stock"]
+                                }
+                                requests.post(f"{settings.SUPABASE_URL}/rest/v1/products", headers=headers, json=payload, timeout=5)
+                            except Exception as seed_err:
+                                logger.error(f"Error seeding product {p['title']}: {seed_err}")
+                        
+                        seeded_res = requests.get(url, headers=headers, timeout=5)
+                        if seeded_res.status_code == 200:
+                            seeded_data = seeded_res.json()
+                            if isinstance(seeded_data, list) and len(seeded_data) > 0:
+                                return seeded_data
                 else:
-                    # Auto-seed initial catalog into Supabase Table satisfying all non-nullable constraints
-                    logger.info("Supabase table empty. Auto-seeding initial artisanal products catalog...")
-                    for p in DEFAULT_PRODUCTS:
-                        try:
-                            supabase.table("products").insert({
-                                "title": p["title"],
-                                "description": p["description"],
-                                "price": p["price"],
-                                "category": p["category"],
-                                "image_url": p["image_url"],
-                                "image_path": p["image_path"],
-                                "status": "published",
-                                "stock": p["stock"]
-                            }).execute()
-                        except Exception as err:
-                            logger.error(f"Error seeding product {p['title']}: {err}")
-                    
-                    seeded = supabase.table("products").select("*").execute()
-                    if seeded.data and len(seeded.data) > 0:
-                        return seeded.data
+                    logger.error(f"Supabase REST returned status {res.status_code}: {res.text}")
             except Exception as e:
-                logger.error(f"Error fetching products from Supabase: {e}")
+                logger.error(f"Error fetching products from Supabase REST: {e}")
         
         return DEFAULT_PRODUCTS
 
@@ -92,8 +112,9 @@ class ProductService:
     async def create_product(product_data: ProductCreate) -> dict:
         new_product = product_data.model_dump()
         
-        if supabase:
+        if settings.SUPABASE_URL and settings.SUPABASE_KEY:
             try:
+                headers = ProductService._get_headers()
                 payload = {
                     "title": new_product["title"],
                     "description": new_product.get("description", ""),
@@ -104,11 +125,15 @@ class ProductService:
                     "status": "published",
                     "stock": new_product.get("stock", 1)
                 }
-                response = supabase.table("products").insert(payload).execute()
-                if response.data and len(response.data) > 0:
-                    return response.data[0]
+                res = requests.post(f"{settings.SUPABASE_URL}/rest/v1/products", headers=headers, json=payload, timeout=5)
+                if res.status_code in [200, 201]:
+                    data = res.json()
+                    if isinstance(data, list) and len(data) > 0:
+                        return data[0]
+                else:
+                    logger.error(f"Supabase REST insert error {res.status_code}: {res.text}")
             except Exception as e:
-                logger.error(f"Error inserting product to Supabase: {e}")
+                logger.error(f"Error inserting product to Supabase REST: {e}")
 
         # Add to local catalog fallback
         new_product["id"] = str(uuid.uuid4())
@@ -117,12 +142,14 @@ class ProductService:
 
     @staticmethod
     async def delete_product(product_id: str) -> bool:
-        if supabase:
+        if settings.SUPABASE_URL and settings.SUPABASE_KEY:
             try:
-                supabase.table("products").delete().eq("id", product_id).execute()
-                return True
+                headers = ProductService._get_headers()
+                res = requests.delete(f"{settings.SUPABASE_URL}/rest/v1/products?id=eq.{product_id}", headers=headers, timeout=5)
+                if res.status_code in [200, 204]:
+                    return True
             except Exception as e:
-                logger.error(f"Error deleting product from Supabase: {e}")
+                logger.error(f"Error deleting product from Supabase REST: {e}")
         
         global DEFAULT_PRODUCTS
         DEFAULT_PRODUCTS = [p for p in DEFAULT_PRODUCTS if p["id"] != product_id]
