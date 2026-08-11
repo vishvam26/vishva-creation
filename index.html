@@ -1506,14 +1506,14 @@
         localStorage.setItem('craftique_products', JSON.stringify(products));
 
         // 100% PRODUCTION PYTHON FASTAPI ENTERPRISE ENGINE
-        const FASTAPI_URL = (window.VITE_API_URL || (typeof process !== 'undefined' && process.env ? process.env.VITE_API_URL : '')) || '/api/v1';
+        const FASTAPI_URL = (window.VITE_API_URL || (typeof process !== 'undefined' && process.env ? process.env.VITE_API_URL : '')) || (window.location.protocol === 'file:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' ? 'http://localhost:8000/api/v1' : '/api/v1');
         let supabaseClient = null;
 
         async function syncProductsToGlobalCloud(updatedProducts) {
           localStorage.setItem('craftique_products', JSON.stringify(updatedProducts));
           
           if (!updatedProducts || updatedProducts.length === 0) return false;
-          const latestProduct = updatedProducts[updatedProducts.length - 1];
+          const latestProduct = updatedProducts[0];
 
           // 1. Primary: Python FastAPI Backend Engine
           try {
