@@ -1504,9 +1504,9 @@
         let products = Array.from(productsMap.values());
         localStorage.setItem('craftique_products', JSON.stringify(products));
 
-        // 100% PRODUCTION SUPABASE ENTERPRISE ENGINE (PostgreSQL + RLS + Storage Buckets + Realtime)
-        const SUPABASE_URL = 'https://pqyrxzmtkwqwexyzzlvt.supabase.co';
-        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBxeXJ4em10a3dxd2V4eXp6bHZ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjMwMDA0MDAsImV4cCI6MjAzODU3NjQwMH0.placeholder';
+        // 100% PRODUCTION SUPABASE ENTERPRISE ENGINE (Vercel Environment Variables Supported)
+        const SUPABASE_URL = window.SUPABASE_URL || (typeof process !== 'undefined' && process.env ? process.env.SUPABASE_URL : '') || 'https://pqyrxzmtkwqwexyzzlvt.supabase.co';
+        const SUPABASE_ANON_KEY = window.SUPABASE_ANON_KEY || (typeof process !== 'undefined' && process.env ? process.env.SUPABASE_ANON_KEY : '') || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBxeXJ4em10a3dxd2V4eXp6bHZ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjMwMDA0MDAsImV4cCI6MjAzODU3NjQwMH0.placeholder';
         const KVDB_CLOUD_URL = 'https://kvdb.io/W4M9x8P7q2R1S5T3U6V8/vishva_master_products_v2026';
 
         let supabaseClient = null;
