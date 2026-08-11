@@ -1,56 +1,48 @@
 import uuid
 import logging
-from typing import List, Optional
+from typing import List
 from db.supabase import supabase
-from schemas.product import ProductCreate, ProductUpdate
+from schemas.product import ProductCreate
 
 logger = logging.getLogger("uvicorn")
 
-# Default Artisanal Products Catalog
+# Default Artisanal Products Catalog matching Supabase Table Columns
 DEFAULT_PRODUCTS = [
     {
         "id": "p1",
-        "name": "Village Landscape Oil Painting",
-        "slug": "village-landscape-oil-painting",
+        "title": "Village Landscape Oil Painting",
         "description": "Authentic oil canvas painting capturing rural Indian heritage & golden sunset vibes by Vishva.",
         "price": 5999.0,
-        "category_id": "paintings",
+        "category": "paintings",
         "image_url": "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=600&q=80",
-        "is_featured": True,
-        "is_active": True
+        "status": "published"
     },
     {
         "id": "p2",
-        "name": "Handcrafted Radha Krishna Canvas",
-        "slug": "handcrafted-radha-krishna-canvas",
+        "title": "Handcrafted Radha Krishna Canvas",
         "description": "Bespoke spiritual oil painting with metallic gold leaf highlights.",
         "price": 8999.0,
-        "category_id": "paintings",
+        "category": "paintings",
         "image_url": "https://images.unsplash.com/photo-1582562124811-c09040d0a901?auto=format&fit=crop&w=600&q=80",
-        "is_featured": True,
-        "is_active": True
+        "status": "published"
     },
     {
         "id": "p3",
-        "name": "Everlasting Crochet Tulip Bouquet",
-        "slug": "everlasting-crochet-tulip-bouquet",
+        "title": "Everlasting Crochet Tulip Bouquet",
         "description": "100% handmade soft milk cotton crochet flowers bouquet in pastel pink.",
         "price": 1499.0,
-        "category_id": "crochet-flowers",
+        "category": "crochet-flowers",
         "image_url": "https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=600&q=80",
-        "is_featured": True,
-        "is_active": True
+        "status": "published"
     },
     {
         "id": "p4",
-        "name": "Cute Amigurumi Teddy Plushie",
-        "slug": "cute-amigurumi-teddy-plushie",
+        "title": "Cute Amigurumi Teddy Plushie",
         "description": "Hand-stitched hypoallergenic plush toy perfect for gifting.",
         "price": 999.0,
-        "category_id": "crochet-plushies",
+        "category": "crochet-plushies",
         "image_url": "https://images.unsplash.com/photo-1558679908-541bcf1249ff?auto=format&fit=crop&w=600&q=80",
-        "is_featured": True,
-        "is_active": True
+        "status": "published"
     }
 ]
 
@@ -59,9 +51,28 @@ class ProductService:
     async def get_all_products() -> List[dict]:
         if supabase:
             try:
-                response = supabase.table("products").select("*").eq("is_active", True).execute()
+                response = supabase.table("products").select("*").execute()
                 if response.data and len(response.data) > 0:
                     return response.data
+                else:
+                    # Auto-seed initial catalog into Supabase Table
+                    logger.info("Supabase table empty. Auto-seeding initial artisanal products catalog...")
+                    for p in DEFAULT_PRODUCTS:
+                        try:
+                            supabase.table("products").insert({
+                                "title": p["title"],
+                                "description": p["description"],
+                                "price": p["price"],
+                                "category": p["category"],
+                                "image_url": p["image_url"],
+                                "status": "published"
+                            }).execute()
+                        except Exception as err:
+                            logger.error(f"Error seeding product {p['title']}: {err}")
+                    
+                    seeded = supabase.table("products").select("*").execute()
+                    if seeded.data and len(seeded.data) > 0:
+                        return seeded.data
             except Exception as e:
                 logger.error(f"Error fetching products from Supabase: {e}")
         
@@ -70,17 +81,25 @@ class ProductService:
     @staticmethod
     async def create_product(product_data: ProductCreate) -> dict:
         new_product = product_data.model_dump()
-        new_product["id"] = str(uuid.uuid4())
         
         if supabase:
             try:
-                response = supabase.table("products").insert(new_product).execute()
+                payload = {
+                    "title": new_product["title"],
+                    "description": new_product.get("description", ""),
+                    "price": new_product["price"],
+                    "category": new_product.get("category", "paintings"),
+                    "image_url": new_product.get("image_url", ""),
+                    "status": "published"
+                }
+                response = supabase.table("products").insert(payload).execute()
                 if response.data and len(response.data) > 0:
                     return response.data[0]
             except Exception as e:
                 logger.error(f"Error inserting product to Supabase: {e}")
 
         # Add to local catalog fallback
+        new_product["id"] = str(uuid.uuid4())
         DEFAULT_PRODUCTS.append(new_product)
         return new_product
 
