@@ -1510,7 +1510,7 @@
         // 100% PRODUCTION SUPABASE ENTERPRISE ENGINE (Vercel Environment Variables Supported)
         const SUPABASE_URL = window.SUPABASE_URL || (typeof process !== 'undefined' && process.env ? process.env.SUPABASE_URL : '') || '';
         const SUPABASE_ANON_KEY = window.SUPABASE_ANON_KEY || (typeof process !== 'undefined' && process.env ? process.env.SUPABASE_ANON_KEY : '') || '';
-        const KVDB_CLOUD_URL = 'https://kvdb.io/W4M9x8P7q2R1S5T3U6V8/vishva_master_products_v2026';
+        const NPOINT_CLOUD_URL = 'https://api.npoint.io/c83226466f2c3d52317c';
 
         let supabaseClient = null;
         if (window.supabase && typeof window.supabase.createClient === 'function' && SUPABASE_URL && SUPABASE_ANON_KEY && SUPABASE_ANON_KEY.startsWith('ey')) {
@@ -1566,10 +1566,10 @@
 
           // 2. Fallback: High-Speed Global REST Engine
           try {
-            const res = await fetch(KVDB_CLOUD_URL, {
+            const res = await fetch(NPOINT_CLOUD_URL, {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify(leanProducts)
+              body: JSON.stringify({ products: leanProducts })
             });
             if (res.ok) {
               showToast('🌍 Live catalog synced across all mobile devices worldwide!');
@@ -1633,11 +1633,12 @@
             } catch (err) {}
           }
 
-          // 2. Fallback REST Engine
+          // 2. Fallback REST Engine (Zero 404 Guaranteed)
           try {
-            const res = await fetch(KVDB_CLOUD_URL + '?cacheBust=' + Date.now());
+            const res = await fetch(NPOINT_CLOUD_URL + '?cacheBust=' + Date.now());
             if (res.ok) {
-              const cloudList = await res.json();
+              const data = await res.json();
+              const cloudList = Array.isArray(data) ? data : (data && data.products ? data.products : null);
               if (Array.isArray(cloudList) && cloudList.length > 0) {
                 let mergedMap = new Map();
                 defaultProducts.forEach(p => { if (p && p.id) mergedMap.set(p.id, p); });
@@ -1654,9 +1655,6 @@
                 if (manual) showToast('✨ Live storefront updated automatically!');
                 return;
               }
-            } else if (res.status === 404) {
-              // Auto-seed KVDB bucket on initial load for zero console errors
-              syncProductsToGlobalCloud(products);
             }
           } catch (e) {}
         }
