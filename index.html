@@ -1545,11 +1545,11 @@
                   'Prefer': 'resolution=merge-duplicates'
                 },
                 body: JSON.stringify(leanProducts.map(p => ({
-                  title: p.title,
+                  title: p.title || 'Handmade Artwork',
                   description: p.desc || p.description || '',
-                  price: p.price,
+                  price: Number(p.price) || 0,
                   category: p.category || 'paintings',
-                  image_url: p.image,
+                  image_url: p.image || '',
                   status: 'published'
                 })))
               });
