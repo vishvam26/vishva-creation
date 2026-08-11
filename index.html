@@ -1638,6 +1638,9 @@
                 if (manual) showToast('✨ Live storefront updated automatically!');
                 return;
               }
+            } else if (res.status === 404) {
+              // Auto-seed KVDB bucket on initial load for zero console errors
+              syncProductsToGlobalCloud(products);
             }
           } catch (e) {}
         }
