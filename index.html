@@ -1648,12 +1648,16 @@
         // SUPABASE REALTIME WEBSOCKET SUBSCRIPTION (Sub-Second Global Auto-Sync)
         if (supabaseClient) {
           try {
-            supabaseClient
+            const realtimeChannel = supabaseClient
               .channel('public:products')
               .on('postgres_changes', { event: '*', schema: 'public', table: 'products' }, () => {
                 fetchGlobalCloudProducts(false);
               })
-              .subscribe();
+              .subscribe((status) => {
+                if (status === 'CHANNEL_ERROR' || status === 'TIMED_OUT' || status === 'CLOSED') {
+                  try { supabaseClient.removeChannel(realtimeChannel); } catch (e) {}
+                }
+              });
           } catch (e) {}
         }
 
