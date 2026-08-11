@@ -1557,7 +1557,9 @@
         async function fetchGlobalCloudProducts(manual = false) {
           if (manual) showToast('🔄 Syncing live store catalog...');
 
-          // 1. Try Firebase Cloud Engine
+          let cloudFound = false;
+
+          // 1. Try Firebase High-Capacity Cloud Engine
           try {
             const res = await fetch(FIREBASE_CLOUD_URL + '?cacheBust=' + Date.now());
             if (res.ok) {
@@ -1576,35 +1578,44 @@
                 render3DCarousel();
                 syncHeroShowcaseWithP1();
                 if (manual) showToast('✨ Live storefront updated automatically!');
+                cloudFound = true;
                 return;
               }
             }
           } catch (e1) {}
 
-          // 2. Try JSONBlob Fallback
-          try {
-            const res2 = await fetch(JSONBLOB_CLOUD_URL + '?cacheBust=' + Date.now());
-            if (res2.ok) {
-              const data2 = await res2.json();
-              const cloudList2 = Array.isArray(data2) ? data2 : (data2 && data2.products ? data2.products : null);
-              if (Array.isArray(cloudList2) && cloudList2.length > 0) {
-                let mergedMap = new Map();
-                defaultProducts.forEach(p => { if (p && p.id) mergedMap.set(p.id, p); });
-                if (Array.isArray(products)) {
-                  products.forEach(p => { if (p && p.id) mergedMap.set(p.id, p); });
+          // 2. Try JSONBlob Fallback Engine
+          if (!cloudFound) {
+            try {
+              const res2 = await fetch(JSONBLOB_CLOUD_URL + '?cacheBust=' + Date.now(), { headers: { 'Accept': 'application/json' } });
+              if (res2.ok) {
+                const data2 = await res2.json();
+                const cloudList2 = Array.isArray(data2) ? data2 : (data2 && data2.products ? data2.products : null);
+                if (Array.isArray(cloudList2) && cloudList2.length > 0) {
+                  let mergedMap = new Map();
+                  defaultProducts.forEach(p => { if (p && p.id) mergedMap.set(p.id, p); });
+                  if (Array.isArray(products)) {
+                    products.forEach(p => { if (p && p.id) mergedMap.set(p.id, p); });
+                  }
+                  cloudList2.forEach(p => { if (p && p.id) mergedMap.set(p.id, p); });
+                  
+                  products = Array.from(mergedMap.values());
+                  localStorage.setItem('craftique_products', JSON.stringify(products));
+                  renderProducts(products);
+                  render3DCarousel();
+                  syncHeroShowcaseWithP1();
+                  if (manual) showToast('✨ Live storefront updated automatically!');
+                  cloudFound = true;
+                  return;
                 }
-                cloudList2.forEach(p => { if (p && p.id) mergedMap.set(p.id, p); });
-                
-                products = Array.from(mergedMap.values());
-                localStorage.setItem('craftique_products', JSON.stringify(products));
-                renderProducts(products);
-                render3DCarousel();
-                syncHeroShowcaseWithP1();
-                if (manual) showToast('✨ Live storefront updated automatically!');
-                return;
               }
-            }
-          } catch (e2) {}
+            } catch (e2) {}
+          }
+
+          // 3. Self-Healing Auto-Initialization: Seed & populate Cloud DB automatically!
+          if (!cloudFound && products && products.length > 0) {
+            syncProductsToGlobalCloud(products);
+          }
         }
 
         // AUTOMATIC REALTIME SYNC ON PAGE LOAD & AUTO-REFRESH EVERY 10 SECONDS
