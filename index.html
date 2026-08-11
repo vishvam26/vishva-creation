@@ -1510,7 +1510,7 @@
         const KVDB_CLOUD_URL = 'https://kvdb.io/W4M9x8P7q2R1S5T3U6V8/vishva_master_products_v2026';
 
         let supabaseClient = null;
-        if (window.supabase && typeof window.supabase.createClient === 'function') {
+        if (window.supabase && typeof window.supabase.createClient === 'function' && SUPABASE_URL && !SUPABASE_URL.includes('pqyrxzmtkwqwexyzzlvt')) {
           try {
             supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
           } catch (e) {}
