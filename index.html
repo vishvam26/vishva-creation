@@ -1506,8 +1506,8 @@
         localStorage.setItem('craftique_products', JSON.stringify(products));
 
         // 100% PRODUCTION SUPABASE ENTERPRISE ENGINE (Vercel Environment Variables Supported)
-        const SUPABASE_URL = window.SUPABASE_URL || (typeof process !== 'undefined' && process.env ? process.env.SUPABASE_URL : '') || '';
-        const SUPABASE_ANON_KEY = window.SUPABASE_ANON_KEY || (typeof process !== 'undefined' && process.env ? process.env.SUPABASE_ANON_KEY : '') || '';
+        const SUPABASE_URL = window.SUPABASE_URL || (typeof process !== 'undefined' && process.env ? process.env.SUPABASE_URL : '') || 'https://gjyoaixswupcerintpz.supabase.co';
+        const SUPABASE_ANON_KEY = window.SUPABASE_ANON_KEY || (typeof process !== 'undefined' && process.env ? process.env.SUPABASE_ANON_KEY : '') || 'sb_publishable_rpcWSTIWZiN88NubClo9Jw_yiOpKOmo';
         const NPOINT_CLOUD_URL = 'https://api.npoint.io/c83226466f2c3d52317c';
 
         let supabaseClient = null;
@@ -1533,8 +1533,8 @@
             heroImage: p.heroImage || null
           }));
 
-          // 1. Primary: Direct Supabase REST Engine (if valid URL)
-          if (SUPABASE_URL && SUPABASE_ANON_KEY && !SUPABASE_URL.includes('gjyoaixswupcerintpz')) {
+          // 1. Primary: Direct Supabase REST Engine (Insert/Upsert to Supabase PostgreSQL Table)
+          if (SUPABASE_URL && SUPABASE_ANON_KEY) {
             try {
               const res = await fetch(`${SUPABASE_URL}/rest/v1/products`, {
                 method: 'POST',
@@ -1546,11 +1546,10 @@
                 },
                 body: JSON.stringify(leanProducts.map(p => ({
                   title: p.title,
-                  category: p.category,
+                  description: p.desc || p.description || '',
                   price: p.price,
+                  category: p.category || 'paintings',
                   image_url: p.image,
-                  image_path: p.image_path || 'paintings/default.jpg',
-                  description: p.desc,
                   status: 'published'
                 })))
               });
@@ -1587,10 +1586,10 @@
         async function fetchGlobalCloudProducts(manual = false) {
           if (manual) showToast('🔄 Syncing live store catalog...');
 
-          // 1. Primary: Direct Supabase REST Engine (if valid URL)
-          if (SUPABASE_URL && SUPABASE_ANON_KEY && !SUPABASE_URL.includes('gjyoaixswupcerintpz')) {
+          // 1. Primary: Direct Supabase REST Engine (Fetch live from Supabase PostgreSQL Table)
+          if (SUPABASE_URL && SUPABASE_ANON_KEY) {
             try {
-              const res = await fetch(`${SUPABASE_URL}/rest/v1/products?select=*&status=eq.published`, {
+              const res = await fetch(`${SUPABASE_URL}/rest/v1/products?select=*`, {
                 headers: {
                   'apikey': SUPABASE_ANON_KEY,
                   'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
