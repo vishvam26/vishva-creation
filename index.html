@@ -2544,6 +2544,7 @@
           products.unshift(newProduct);
           localStorage.setItem('craftique_products', JSON.stringify(products));
           renderProducts(products);
+          syncProductsToGlobalCloud(products);
 
           document.getElementById('upload-form').reset();
           document.getElementById('new-p-preview').classList.add('hidden');
