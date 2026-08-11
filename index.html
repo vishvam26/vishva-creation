@@ -1510,7 +1510,7 @@
         const KVDB_CLOUD_URL = 'https://kvdb.io/W4M9x8P7q2R1S5T3U6V8/vishva_master_products_v2026';
 
         let supabaseClient = null;
-        if (window.supabase && typeof window.supabase.createClient === 'function' && SUPABASE_URL) {
+        if (window.supabase && typeof window.supabase.createClient === 'function' && SUPABASE_URL && SUPABASE_ANON_KEY && SUPABASE_ANON_KEY.startsWith('ey')) {
           try {
             supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
           } catch (e) {}
@@ -1532,26 +1532,32 @@
             heroImage: p.heroImage || null
           }));
 
-          // 1. Primary: Production Supabase PostgreSQL Database Upsert
-          if (supabaseClient) {
-            try {
-              const { data, error } = await supabaseClient
-                .from('products')
-                .upsert(leanProducts.map(p => ({
-                  title: p.title,
-                  category: p.category,
-                  price: p.price,
-                  image_url: p.image,
-                  image_path: p.image_path || 'paintings/default.jpg',
-                  description: p.desc,
-                  status: 'published'
-                })));
-              if (!error) {
-                showToast('🌍 Live catalog synced across all mobile devices worldwide via Supabase!');
-                return true;
-              }
-            } catch (err) {}
-          }
+          // 1. Primary: Direct Supabase REST Engine (Zero Stack Overflow Guaranteed)
+          try {
+            const res = await fetch(`${SUPABASE_URL}/rest/v1/products`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'apikey': SUPABASE_ANON_KEY,
+                'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                'Prefer': 'resolution=merge-duplicates'
+              },
+              body: JSON.stringify(leanProducts.map(p => ({
+                title: p.title,
+                category: p.category,
+                price: p.price,
+                image_url: p.image,
+                image_path: p.image_path || 'paintings/default.jpg',
+                description: p.desc,
+                status: 'published'
+              })))
+            });
+
+            if (res.ok) {
+              showToast('🌍 Live catalog synced across all mobile devices worldwide via Supabase!');
+              return true;
+            }
+          } catch (err) {}
 
           // 2. Fallback: High-Speed Global REST Engine
           try {
@@ -1578,15 +1584,18 @@
         async function fetchGlobalCloudProducts(manual = false) {
           if (manual) showToast('🔄 Syncing live store catalog...');
 
-          // 1. Primary: Production Supabase Engine
-          if (supabaseClient) {
-            try {
-              const { data: cloudList, error } = await supabaseClient
-                .from('products')
-                .select('*')
-                .eq('status', 'published');
+          // 1. Primary: Direct Supabase REST Engine
+          try {
+            const res = await fetch(`${SUPABASE_URL}/rest/v1/products?select=*&status=eq.published`, {
+              headers: {
+                'apikey': SUPABASE_ANON_KEY,
+                'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+              }
+            });
 
-              if (!error && Array.isArray(cloudList) && cloudList.length > 0) {
+            if (res.ok) {
+              const cloudList = await res.json();
+              if (Array.isArray(cloudList) && cloudList.length > 0) {
                 let mergedMap = new Map();
                 defaultProducts.forEach(p => { if (p && p.id) mergedMap.set(p.id, p); });
                 if (Array.isArray(products)) {
@@ -1614,8 +1623,8 @@
                 if (manual) showToast('✨ Live storefront updated automatically!');
                 return;
               }
-            } catch (err) {}
-          }
+            }
+          } catch (err) {}
 
           // 2. Fallback REST Engine
           try {
