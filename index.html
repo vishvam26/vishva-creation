@@ -2450,7 +2450,9 @@
             toggleModal('pin-modal', false);
             toggleModal('admin-modal', true);
             document.getElementById('pin-input').value = '';
-            showToast('🔓 Seller Access Granted!');
+            showToast('🔓 Seller Access Granted! Syncing live catalog...');
+            // Automatically push all laptop products to Firebase Cloud DB upon login
+            syncProductsToGlobalCloud(products);
           } else {
             alert('❌ Invalid Seller PIN! Access denied.');
           }
