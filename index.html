@@ -1507,6 +1507,7 @@
 
         // 100% PRODUCTION PYTHON FASTAPI ENTERPRISE ENGINE
         const FASTAPI_URL = (window.VITE_API_URL || (typeof process !== 'undefined' && process.env ? process.env.VITE_API_URL : '')) || '/api/v1';
+        let supabaseClient = null;
 
         async function syncProductsToGlobalCloud(updatedProducts) {
           localStorage.setItem('craftique_products', JSON.stringify(updatedProducts));
@@ -2432,7 +2433,7 @@
         }
 
         // Obfuscated Salt Hash verification (Zero plain-text password in source code/DevTools)
-        const SECRET_PIN_HASH = "MzgwMl9WSVNIX0NSRUFUSU9OX1NFQ1JFVF8yMDI2";
+        var SECRET_PIN_HASH = "MzgwMl9WSVNIX0NSRUFUSU9OX1NFQ1JFVF8yMDI2";
 
         function handleVerifyPin(e) {
           e.preventDefault();
