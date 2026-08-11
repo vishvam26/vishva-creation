@@ -1536,7 +1536,11 @@
               
               if (Array.isArray(cloudList) && cloudList.length > 0) {
                 let mergedMap = new Map();
-                defaultProducts.forEach(p => mergedMap.set(p.id, p));
+                defaultProducts.forEach(p => { if (p && p.id) mergedMap.set(p.id, p); });
+                // Merge currently loaded local products so newly added items NEVER disappear on refresh!
+                if (Array.isArray(products)) {
+                  products.forEach(p => { if (p && p.id) mergedMap.set(p.id, p); });
+                }
                 cloudList.forEach(p => { if (p && p.id) mergedMap.set(p.id, p); });
                 
                 products = Array.from(mergedMap.values());
